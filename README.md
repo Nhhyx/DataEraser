@@ -25,6 +25,7 @@ Si bloqué par macOS : clic droit → "Ouvrir" → "Ouvrir quand même"
 
 ### Linux - dans le terminal :
 ```bash
+chmod +x start.sh
 bash start.sh
 ```
 
@@ -45,7 +46,7 @@ Flask est installé automatiquement au premier lancement.
 | Étape | Fonction | Mode |
 |-------|----------|------|
 | 01 Identité | Nom, prénom, variantes + choix des modes de recherche | Local |
-| 02 Recherche | 14 moteurs × N variantes + 8 data brokers FR | Liens |
+| 02 Recherche | 14 moteurs × N variantes + 4 data brokers FR | Liens |
 | 03 Fuites | Have I Been Pwned par email | Lien |
 | 04 Emails RGPD | Génération Art.17 pour chaque site identifié | **100% local** |
 | 05 Déréférencement | Formulaires Google, Bing, CNIL… + email générique | Liens |
