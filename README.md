@@ -25,6 +25,7 @@ Si bloqué par macOS : clic droit → "Ouvrir" → "Ouvrir quand même"
 
 ### Linux - dans le terminal :
 ```bash
+chmod +x start.sh
 bash start.sh
 ```
 
