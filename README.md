@@ -1,4 +1,4 @@
-# DataEraser 🛡️
+# DataEraser
 **Outil local de nettoyage de présence numérique**
 
 > Aucune donnée envoyée à des tiers. Tout tourne en local sur votre machine.
@@ -7,12 +7,12 @@
 
 ## Lancement (choisissez selon votre système)
 
-### 🍎 Mac — double-cliquer sur `DataEraser.command`
+### Mac - double-cliquer sur `DataEraser.command`
 Si bloqué par macOS : clic droit → "Ouvrir" → "Ouvrir quand même"
 
-### 🪟 Windows — double-cliquer sur `start.bat`
+### Windows - double-cliquer sur `start.bat`
 
-### 🐧 Linux — dans le terminal :
+### Linux - dans le terminal :
 ```bash
 bash start.sh
 ```
@@ -42,16 +42,16 @@ Flask est installé automatiquement au premier lancement.
 ---
 
 ## Modes de recherche
-- **"Prénom Nom"** — avec guillemets (recherche exacte)
-- **"Nom Prénom"** — avec guillemets (ordre inversé)
-- **Prénom Nom** — sans guillemets (résultats plus larges)
+- **"Prénom Nom"** - avec guillemets (recherche exacte)
+- **"Nom Prénom"** - avec guillemets (ordre inversé)
+- **Prénom Nom** - sans guillemets (résultats plus larges)
 
 Chaque moteur génère un lien par mode coché, déroulables en accordéon.
 
 ---
 
 ## RGPD — Base légale
-- **Article 17** — Droit à l'effacement
-- **Article 21** — Droit d'opposition
+- **Article 17** - Droit à l'effacement
+- **Article 21** - Droit d'opposition
 - Délai de réponse légal : **30 jours**
 - Recours : **CNIL** (cnil.fr/fr/plaintes)
