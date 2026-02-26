@@ -33,7 +33,7 @@ bash start.sh
 
 ### Prérequis : Python 3.9+
 - Mac : https://www.python.org/downloads/ (ou `brew install python`)
-- Windows : https://www.python.org/downloads/ — cocher **"Add Python to PATH"**
+- Windows : https://www.python.org/downloads/ - cocher **"Add Python to PATH"**
 - Linux : `sudo apt install python3 python3-pip`
 
 Flask est installé automatiquement au premier lancement.
@@ -61,7 +61,7 @@ Chaque moteur génère un lien par mode coché, déroulables en accordéon.
 
 ---
 
-## RGPD — Base légale
+## RGPD - Base légale
 - **Article 17** - Droit à l'effacement
 - **Article 21** - Droit d'opposition
 - Délai de réponse légal : **30 jours**

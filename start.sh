@@ -1,5 +1,5 @@
 #!/bin/bash
-# DataEraser — Lanceur Mac/Linux
+# DataEraser - Lanceur Mac/Linux
 # Double-cliquer ou exécuter dans le terminal
 
 set -e
@@ -49,7 +49,7 @@ fi
 
 echo "✅ Flask OK"
 echo ""
-echo "🚀 Démarrage — le navigateur va s'ouvrir automatiquement"
+echo "🚀 Démarrage - le navigateur va s'ouvrir automatiquement"
 echo "   Ctrl+C pour arrêter l'outil"
 echo ""
 

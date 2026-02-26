@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-DataEraser — Outil local de nettoyage de présence numérique
+DataEraser - Outil local de nettoyage de présence numérique
 Lancer : python app.py  puis ouvrir http://localhost:5000
 """
 

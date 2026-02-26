@@ -219,7 +219,7 @@ textarea{width:100%;resize:vertical;line-height:1.6}
     <button class="p-step locked" onclick="nav(4)" id="n4">05<br>DÉRÉFÉRENCEMENT</button>
   </nav>
 
-  <!-- ───── STEP 0 — IDENTITÉ ───── -->
+  <!-- ───── STEP 0 - IDENTITÉ ───── -->
   <div class="section active" id="s0">
     <div class="card">
       <div class="card-title">→ Votre identité</div>
@@ -282,10 +282,11 @@ textarea{width:100%;resize:vertical;line-height:1.6}
     </div>
   </div>
 
-  <!-- ───── STEP 1 — RECHERCHE ───── -->
+  <!-- ───── STEP 1 - RECHERCHE ───── -->
   <div class="section" id="s1">
     <div class="card">
       <div class="card-title">→ Requêtes générées</div>
+        <p style="font-family:var(--mono);font-size:1.05rem;color:var(--muted);margin-bottom:.8rem">Veillez à verifier tous les modes. Attention "Nom prenom" =/= Prenom Nom ni même à "Prenom Nom" (sans guillemets)</p>
       <div class="variants-box" id="variants-box">…</div>
     </div>
 
@@ -296,13 +297,13 @@ textarea{width:100%;resize:vertical;line-height:1.6}
     </div>
 
     <div class="card">
-      <div class="card-title">→ Data brokers français</div>
-      <div class="link-grid" id="brokers-grid">…</div>
+      <div class="card-title">→ Registres publics</div>
+      <div class="banner b-warn">⚠ Ces données sont issues de registres officiels (Infogreffe, Verif.com, Societe.com). La suppression n'est possible que si vous n'êtes plus dirigeant d'une société active. Pour limiter la diffusion de vos données personnelles dans le registre SIRENE : <a href="https://statut-diffusion-sirene.insee.fr/" target="_blank" style="color:var(--warn);text-decoration:underline">statut-diffusion-sirene.insee.fr</a></div>      <div class="link-grid" id="brokers-grid">…</div>
     </div>
 
     <div class="card">
-      <div class="card-title">→ Sites où j'apparais</div>
-      <div class="banner b-warn">⚠ Notez chaque site où votre nom apparaît. Ajoutez l'URL exacte de la page si possible — elle sera incluse dans l'email RGPD.</div>
+      <div class="card-title">→ Sites où j'apparais </div>
+      <div class="banner b-warn">⚠ Notez chaque site où votre nom apparaît. Ajoutez l'URL exacte de la page si possible - elle sera incluse dans l'email RGPD.</div>
       <div class="sites-list" id="sites-list"></div>
       <button class="btn-add" onclick="addSiteRow()">+ Ajouter un site</button>
       <div class="row">
@@ -312,10 +313,10 @@ textarea{width:100%;resize:vertical;line-height:1.6}
     </div>
   </div>
 
-  <!-- ───── STEP 2 — FUITES ───── -->
+  <!-- ───── STEP 2 - FUITES ───── -->
   <div class="section" id="s2">
     <div class="card">
-      <div class="card-title">→ Have I Been Pwned — fuites de données</div>
+      <div class="card-title">→ Have I Been Pwned - fuites de données</div>
       <div class="banner b-info">ℹ Vérifiez si vos emails ont été compromis dans des fuites de données connues.</div>
       <div class="row">
         <div class="field">
@@ -341,27 +342,27 @@ textarea{width:100%;resize:vertical;line-height:1.6}
     </div>
   </div>
 
-  <!-- ───── STEP 3 — EMAILS RGPD ───── -->
+  <!-- ───── STEP 3 - EMAILS RGPD ───── -->
   <div class="section" id="s3">
     <div class="card">
       <div class="card-title">→ Emails de suppression RGPD</div>
-      <div class="banner b-info">ℹ Basé sur l'Art. 17 RGPD – droit à l'effacement. Délai légal de réponse : 30 jours.</div>
+      <div class="banner b-info">ℹ Basé sur l'Art. 17 RGPD - droit à l'effacement. Délai légal de réponse : 30 jours. Il vous apparatiendra de l'adresser aux sites ou organismes publiant vos données afin d’en demander l’effacement.</div>
       <div id="emails-content">
         <div class="loading"><div class="spin"></div>Génération en cours…</div>
       </div>
     </div>
   </div>
 
-  <!-- ───── STEP 4 — DÉRÉFÉRENCEMENT ───── -->
+  <!-- ───── STEP 4 - DÉRÉFÉRENCEMENT ───── -->
   <div class="section" id="s4">
     <div class="card">
       <div class="card-title">→ Formulaires de déréférencement</div>
-      <div class="banner b-info">ℹ Le déréférencement (Art. 17 RGPD) permet de supprimer vos liens des résultats de recherche, indépendamment du site source.</div>
+      <div class="banner b-info">ℹ Le déréférencement (Art. 17 RGPD) permet de supprimer vos liens des résultats de recherche, indépendamment du site source. ⚠ Cela ne supprime pas l’information sur le site d’origine seulement le lien dans les résultats de recherche.</div>
       <div class="deref-grid" id="deref-grid">…</div>
     </div>
     <div class="card">
       <div class="card-title">→ Email générique de déréférencement</div>
-      <div class="banner b-warn">Pour les moteurs sans formulaire — envoyez directement à leur DPO.</div>
+      <div class="banner b-warn">Pour les moteurs sans formulaire - envoyez directement à leur DPO.</div>
       <div id="deref-email-wrap"></div>
     </div>
     <div class="card">
@@ -479,7 +480,7 @@ async function step0() {
   document.getElementById('variants-box').innerHTML =
     data.variants.map(v => `<span class="tag tg">${v}</span>`).join(' ');
 
-  // Engines — accordion
+  // Engines - accordion
   document.getElementById('engines-list').innerHTML = data.search_engines.map((e, i) => `
     <div class="engine-item" id="eng-${i}">
       <div class="engine-head" onclick="toggleEng(${i})">
@@ -590,7 +591,7 @@ ${e.corps}</div>
   }).join('');
 
   document.getElementById('emails-content').innerHTML =
-    `<div class="banner b-info">✓ ${emails.length} email(s) générés — copiez et envoyez à chaque DPO.</div>` +
+    `<div class="banner b-info">✓ ${emails.length} email(s) générés - copiez et envoyez à chaque DPO.</div>` +
     html +
     `<br><div class="row">
       <button class="btn btn-secondary" onclick="nav(1)">← Modifier les sites</button>
