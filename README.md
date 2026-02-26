@@ -9,7 +9,7 @@
 ## Etapes d'installation 
 
 > Télécharger le dossier ZIP (ou bien git clone pour les connaisseurs)
-<img width="403" height="313" alt="zip" src="https://github.com/user-attachments/assets/eb189dd5-30a5-410b-91e0-e47aa69617f1" />
+<img width="394" height="313" alt="code" src="https://github.com/user-attachments/assets/6e923058-bda7-4681-861f-baeef4dac558" />
 
 > Extraire le dossier : clic droit → "Extraire" ou "Extraire tout"
 <img width="510" height="511" alt="extraire" src="https://github.com/user-attachments/assets/f5e704a6-c13c-49fb-8a54-31b44fb6ab3f" />
