@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DataEraser</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#07090e; --s1:#0d1117; --s2:#161b22; --s3:#1f2937;
+  --border:#21262d; --accent:#00e87a; --danger:#ff3864;
+  --purple:#8b5cf6; --warn:#f59e0b; --text:#e6edf3; --muted:#6e7681;
+  --mono:'Space Mono',monospace; --sans:'Syne',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(rgba(0,232,122,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,232,122,.025) 1px,transparent 1px);
+  background-size:44px 44px}
+.wrap{max-width:880px;margin:0 auto;padding:0 1.5rem 4rem;position:relative;z-index:1}
+
+/* ── Header ── */
+header{text-align:center;padding:2.5rem 0 2rem}
+.logo-tag{font-family:var(--mono);font-size:1rem;letter-spacing:.45em;color:var(--accent);margin-bottom:.8rem}
+h1{font-size:clamp(2.8rem,7vw,4.5rem);font-weight:800;line-height:1}
+h1 em{font-style:normal;color:var(--accent)}
+.tagline{font-family:var(--mono);font-size:.9rem;color:var(--muted);margin-top:.6rem}
+
+/* ── Progress ── */
+.progress{display:flex;gap:0;border:1px solid var(--border);border-radius:5px;overflow:hidden;margin:1.5rem 0 2rem}
+.p-step{flex:1;padding:.55rem .4rem;background:var(--s1);border:none;color:var(--muted);font-family:var(--mono);font-size:.78rem;text-align:center;cursor:pointer;border-right:1px solid var(--border);transition:all .2s;line-height:1.35}
+.p-step:last-child{border-right:none}
+.p-step.active{background:var(--accent);color:var(--bg);font-weight:700}
+.p-step.done{background:rgba(0,232,122,.12);color:var(--accent)}
+.p-step.locked{opacity:.3;cursor:not-allowed}
+
+/* ── Cards ── */
+.card{background:var(--s1);border:1px solid var(--border);border-radius:8px;padding:1.8rem;margin-bottom:1.2rem;position:relative;overflow:hidden}
+.card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),transparent)}
+.card-title{font-family:var(--mono);font-size:.8rem;letter-spacing:.35em;color:var(--accent);text-transform:uppercase;margin-bottom:1rem}
+
+/* ── Fields & inputs ── */
+.field{flex:1;min-width:180px;display:flex;flex-direction:column;gap:.3rem}
+.field label{font-family:var(--mono);font-size:.83rem;color:var(--muted)}
+.field label .req{color:var(--accent);margin-left:.2rem}
+.row{display:flex;gap:.8rem;margin-bottom:.8rem;flex-wrap:wrap}
+input[type=text],input[type=email],textarea{
+  width:100%;background:var(--s2);border:1px solid var(--border);
+  color:var(--text);padding:.85rem 1rem;font-family:var(--mono);font-size:1rem;
+  border-radius:4px;outline:none;transition:border .15s,box-shadow .15s}
+input:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,232,122,.08)}
+input::placeholder,textarea::placeholder{color:var(--muted)}
+input.error{border-color:var(--danger)!important;box-shadow:0 0 0 3px rgba(255,56,100,.1)!important;animation:shake .3s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+textarea{width:100%;resize:vertical;line-height:1.6}
+
+/* ── Inline field error ── */
+.field-error{font-family:var(--mono);font-size:.8rem;color:var(--danger);margin-top:.2rem;display:none;align-items:center;gap:.3rem}
+.field-error.show{display:flex}
+.field-error::before{content:'✕ '}
+
+/* ── Toast ── */
+#toast{
+  position:fixed;top:1.5rem;left:50%;
+  transform:translateX(-50%) translateY(-120px);
+  background:var(--s2);border:1px solid var(--danger);
+  border-radius:10px;padding:1rem 1.3rem;z-index:9999;
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1);
+  font-family:var(--mono);font-size:.95rem;
+  display:flex;align-items:flex-start;gap:.75rem;
+  max-width:420px;width:calc(100% - 3rem);
+  box-shadow:0 12px 40px rgba(0,0,0,.6),0 0 0 1px rgba(255,56,100,.2)}
+#toast.show{transform:translateX(-50%) translateY(0)}
+#toast .t-icon{font-size:1.2rem;flex-shrink:0;margin-top:.05rem;filter:drop-shadow(0 0 6px var(--danger))}
+#toast .t-body{flex:1}
+#toast .t-title{font-weight:700;color:var(--danger);margin-bottom:.3rem;font-size:.78rem;letter-spacing:.05em}
+#toast .t-list{color:#c9d1d9;line-height:1.8}
+#toast .t-close{background:none;border:none;color:var(--muted);cursor:pointer;font-size:1rem;padding:.1rem;flex-shrink:0;line-height:1;margin-top:.1rem}
+#toast .t-close:hover{color:var(--text)}
+
+/* ── Search mode chips ── */
+.mode-label{font-family:var(--mono);font-size:.83rem;color:var(--muted);display:block;margin-bottom:.6rem}
+.mode-group{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1rem}
+.mode-chip{position:relative}
+.mode-chip input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
+.mode-chip label{
+  display:flex;align-items:center;gap:.5rem;padding:.5rem 1rem;
+  border:1px solid var(--border);border-radius:20px;cursor:pointer;
+  font-family:var(--mono);font-size:.9rem;color:var(--muted);
+  background:var(--s2);transition:all .2s;user-select:none}
+.mode-chip input:checked + label{border-color:var(--accent);color:var(--accent);background:rgba(0,232,122,.08)}
+.mode-chip label:hover{border-color:rgba(0,232,122,.4);color:var(--text)}
+.chip-dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0}
+.mode-chip-error .mode-chip label{border-color:rgba(255,56,100,.5)}
+
+/* ── Buttons ── */
+.btn{padding:.9rem 1.6rem;border:none;border-radius:4px;cursor:pointer;font-family:var(--sans);font-weight:600;font-size:1rem;transition:all .2s;display:inline-flex;align-items:center;gap:.5rem}
+.btn-primary{background:var(--accent);color:var(--bg)}
+.btn-primary:hover{filter:brightness(1.1);transform:translateY(-1px)}
+.btn-secondary{background:transparent;border:1px solid var(--border);color:var(--text)}
+.btn-secondary:hover{border-color:var(--accent);color:var(--accent)}
+.btn-ghost{background:transparent;border:1px solid var(--border);color:var(--muted);padding:.35rem .7rem;font-size:.88rem}
+.btn-ghost:hover{color:var(--accent);border-color:var(--accent)}
+
+/* ── Engine accordion ── */
+.engine-item{background:var(--s2);border:1px solid var(--border);border-radius:6px;margin-bottom:.45rem;overflow:hidden}
+.engine-head{display:flex;align-items:center;justify-content:space-between;padding:.65rem .9rem;cursor:pointer;transition:background .15s;user-select:none}
+.engine-head:hover{background:var(--s3)}
+.engine-name{font-size:1rem;font-weight:600}
+.engine-type-badge{font-family:var(--mono);font-size:.78rem;color:var(--muted);margin-left:.5rem}
+.engine-links{display:none;flex-wrap:wrap;gap:.45rem;padding:.65rem .9rem;border-top:1px solid var(--border);background:rgba(0,0,0,.15)}
+.engine-item.open .engine-links{display:flex}
+.engine-link-btn{font-family:var(--mono);font-size:1rem;color:var(--accent);border:1px solid rgba(0,232,122,.35);padding:.3rem .65rem;border-radius:3px;text-decoration:none;transition:all .15s;white-space:nowrap}
+.engine-link-btn:hover{background:var(--accent);color:var(--bg)}
+.chevron{font-size:1.05rem;color:var(--muted);transition:transform .2s;flex-shrink:0}
+.engine-item.open .chevron{transform:rotate(180deg)}
+
+/* ── Broker grid ── */
+.link-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.6rem}
+.link-card{background:var(--s2);border:1px solid var(--border);border-radius:6px;padding:.7rem .9rem;display:flex;align-items:center;justify-content:space-between;gap:.5rem}
+.link-card-info .name{font-size:1rem;font-weight:600}
+.link-card-info .type{font-family:var(--mono);font-size:.78rem;color:var(--muted)}
+.link-card a{font-family:var(--mono);font-size:.8rem;color:var(--accent);border:1px solid rgba(0,232,122,.35);padding:.2rem .55rem;border-radius:3px;text-decoration:none;white-space:nowrap}
+.link-card a:hover{background:var(--accent);color:var(--bg)}
+
+/* ── Site rows ── */
+.sites-list{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1rem}
+.site-row{display:flex;gap:.5rem;align-items:center}
+.site-row input{flex:1}
+.site-row .url-input{flex:2}
+.btn-del{background:rgba(255,56,100,.08);border:1px solid rgba(255,56,100,.25);color:var(--danger);padding:.42rem .75rem;border-radius:4px;cursor:pointer;font-size:.8rem;transition:all .2s;flex-shrink:0}
+.btn-del:hover{background:var(--danger);color:#fff}
+.btn-add{background:rgba(0,232,122,.07);border:1px solid rgba(0,232,122,.25);color:var(--accent);padding:.5rem 1rem;border-radius:4px;cursor:pointer;font-family:var(--mono);font-size:.9rem;margin-bottom:1rem;transition:all .2s}
+.btn-add:hover{background:rgba(0,232,122,.16)}
+
+/* ── Email blocks ── */
+.email-wrap{border:1px solid var(--border);border-radius:7px;overflow:hidden;margin-bottom:1rem}
+.email-head{background:var(--s2);padding:.7rem 1rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
+.email-head-left .site{font-weight:600;font-size:1.05rem}
+.email-head-left .to{font-family:var(--mono);font-size:.78rem;color:var(--muted)}
+.email-body{padding:1rem;font-family:var(--mono);font-size:.9rem;line-height:1.75;color:#c9d1d9;white-space:pre-wrap;background:var(--s1)}
+
+/* ── Banners ── */
+.banner{padding:.7rem 1rem;border-radius:5px;font-family:var(--mono);font-size:.9rem;margin-bottom:1rem;display:flex;gap:.5rem;line-height:1.5}
+.b-info{background:rgba(0,232,122,.05);border:1px solid rgba(0,232,122,.2);color:#8ef5c8}
+.b-warn{background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.2);color:var(--warn)}
+
+/* ── Tags ── */
+.tag{display:inline-block;font-family:var(--mono);font-size:.78rem;padding:.1rem .4rem;border-radius:3px;margin:.1rem}
+.tg{background:rgba(0,232,122,.1);color:var(--accent);border:1px solid rgba(0,232,122,.3)}
+.ty{background:rgba(245,158,11,.1);color:var(--warn);border:1px solid rgba(245,158,11,.3)}
+.tp{background:rgba(139,92,246,.1);color:#a78bfa;border:1px solid rgba(139,92,246,.3)}
+
+/* ── Spinner ── */
+.spin{display:inline-block;width:14px;height:14px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading{padding:2rem;text-align:center;color:var(--muted);font-family:var(--mono);font-size:.95rem}
+.loading .spin{width:24px;height:24px;border-width:3px;display:block;margin:0 auto .8rem}
+
+/* ── Deref ── */
+.deref-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.75rem}
+.deref-card{background:var(--s2);border:1px solid var(--border);border-radius:6px;padding:1rem}
+.deref-card h4{font-size:1.05rem;font-weight:600;margin-bottom:.25rem}
+.deref-card p{font-family:var(--mono);font-size:1rem;color:var(--muted);margin-bottom:.6rem}
+.deref-card a{display:inline-block;color:var(--purple);font-family:var(--mono);font-size:.86rem;border:1px solid rgba(139,92,246,.4);padding:.25rem .6rem;border-radius:3px;text-decoration:none}
+.deref-card a:hover{background:var(--purple);color:#fff}
+
+/* ── Stats ── */
+.stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:.75rem;margin-bottom:1.5rem}
+.stat{background:var(--s2);border:1px solid var(--border);border-radius:6px;padding:1rem;text-align:center}
+.stat-n{font-size:2rem;font-weight:800;color:var(--accent)}
+.stat-l{font-family:var(--mono);font-size:.56rem;color:var(--muted);margin-top:.25rem}
+
+/* ── Extra ── */
+.extra-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:.7rem}
+.extra-card{background:var(--s2);border:1px solid var(--border);border-radius:6px;padding:.9rem}
+.extra-card h4{font-size:1rem;font-weight:600;margin-bottom:.25rem}
+.extra-card p{font-family:var(--mono);font-size:1rem;color:var(--muted);margin-bottom:.6rem}
+.extra-card a{font-family:var(--mono);font-size:.83rem;color:var(--accent);text-decoration:none}
+.extra-card a:hover{text-decoration:underline}
+.cat-badge{font-family:var(--mono);font-size:.52rem;padding:.1rem .4rem;border-radius:3px;background:var(--s3);color:var(--muted);margin-left:.4rem;vertical-align:middle}
+
+/* ── Variants ── */
+.variants-box{background:var(--s2);border:1px solid var(--border);border-radius:5px;padding:.9rem;margin-bottom:1rem;line-height:2.2}
+
+/* ── Sections ── */
+.section{display:none}
+.section.active{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:580px){.row{flex-direction:column}.site-row{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+
+<!-- Toast notification -->
+<div id="toast">
+  <div class="t-icon">⚠️</div>
+  <div class="t-body">
+    <div class="t-title">Champs requis manquants</div>
+    <div class="t-list" id="toast-list"></div>
+  </div>
+  <button class="t-close" onclick="hideToast()">✕</button>
+</div>
+
+<div class="wrap">
+  <header>
+    <p class="logo-tag">// OUTIL LOCAL DE CONFIDENTIALITÉ //</p>
+    <h1>Data<em>Eraser</em></h1>
+    <p class="tagline">Nettoyage de présence numérique · RGPD Art.17 · Déréférencement</p>
+  </header>
+
+  <nav class="progress">
+    <button class="p-step active" onclick="nav(0)" id="n0">01<br>IDENTITÉ</button>
+    <button class="p-step locked" onclick="nav(1)" id="n1">02<br>RECHERCHE</button>
+    <button class="p-step locked" onclick="nav(2)" id="n2">03<br>FUITES</button>
+    <button class="p-step locked" onclick="nav(3)" id="n3">04<br>EMAILS RGPD</button>
+    <button class="p-step locked" onclick="nav(4)" id="n4">05<br>DÉRÉFÉRENCEMENT</button>
+  </nav>
+
+  <!-- ───── STEP 0 - IDENTITÉ ───── -->
+  <div class="section active" id="s0">
+    <div class="card">
+      <div class="card-title">→ Votre identité</div>
+      <div class="banner b-info">ℹ Toutes vos données restent en local. Aucun envoi automatique à des tiers.</div>
+
+      <div class="row">
+        <div class="field">
+          <label>Prénom <span class="req">*</span></label>
+          <input type="text" id="prenom" placeholder="Jean" oninput="clearErr('prenom')">
+          <div class="field-error" id="err-prenom">Prénom requis</div>
+        </div>
+        <div class="field">
+          <label>Nom <span class="req">*</span></label>
+          <input type="text" id="nom" placeholder="Dupont" oninput="clearErr('nom')">
+          <div class="field-error" id="err-nom">Nom requis</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label>Variante prénom <span style="font-size:.55rem;color:var(--muted)">(surnom, diminutif…)</span></label>
+          <input type="text" id="alt_prenom" placeholder="Johnny">
+        </div>
+        <div class="field">
+          <label>Autre nom <span style="font-size:.55rem;color:var(--muted)">(nom de jeune fille…)</span></label>
+          <input type="text" id="alt_nom" placeholder="Martin">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label>Ville <span style="font-size:.55rem;color:var(--muted)">(pour affiner les résultats)</span></label>
+          <input type="text" id="ville" placeholder="Paris">
+        </div>
+        <div class="field">
+          <label>Pseudo / username</label>
+          <input type="text" id="pseudo" placeholder="jdupont42">
+        </div>
+      </div>
+
+      <!-- Modes de recherche -->
+      <span class="mode-label">Modes de recherche <span style="font-size:.55rem">(cochez ce que vous voulez tester)</span></span>
+      <div class="mode-group" id="mode-group">
+        <div class="mode-chip">
+          <input type="checkbox" id="mode_pn" checked>
+          <label for="mode_pn"><span class="chip-dot"></span>"Prénom Nom"</label>
+        </div>
+        <div class="mode-chip">
+          <input type="checkbox" id="mode_np" checked>
+          <label for="mode_np"><span class="chip-dot"></span>"Nom Prénom"</label>
+        </div>
+        <div class="mode-chip">
+          <input type="checkbox" id="mode_sans" checked>
+          <label for="mode_sans"><span class="chip-dot"></span>Prénom Nom <span style="font-size:.55rem;opacity:.6">(sans guillemets)</span></label>
+        </div>
+      </div>
+      <div class="field-error" id="err-modes" style="margin-bottom:.8rem">Sélectionnez au moins un mode</div>
+
+      <button class="btn btn-primary" onclick="step0()">Générer les recherches →</button>
+    </div>
+  </div>
+
+  <!-- ───── STEP 1 - RECHERCHE ───── -->
+  <div class="section" id="s1">
+    <div class="card">
+      <div class="card-title">→ Requêtes générées</div>
+        <p style="font-family:var(--mono);font-size:1.05rem;color:var(--muted);margin-bottom:.8rem">Veillez à verifier tous les modes. Attention "Nom prenom" =/= Prenom Nom ni même à "Prenom Nom" (sans guillemets)</p>
+      <div class="variants-box" id="variants-box">…</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">→ Moteurs de recherche</div>
+      <p style="font-family:var(--mono);font-size:1.05rem;color:var(--muted);margin-bottom:.8rem">Cliquez chaque moteur pour dérouler ses variantes, puis ouvrez chaque lien.</p>
+      <div id="engines-list">…</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">→ Registres publics</div>
+      <div class="banner b-warn">⚠ Ces données sont issues de registres officiels (Infogreffe, Verif.com, Societe.com). La suppression n'est possible que si vous n'êtes plus dirigeant d'une société active. Si votre société est encore active, limitez la diffusion de vos données personnelles dans le registre SIRENE : <a href="https://statut-diffusion-sirene.insee.fr/" target="_blank" style="color:var(--warn);text-decoration:underline">statut-diffusion-sirene.insee.fr</a></div>      <div class="link-grid" id="brokers-grid">…</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">→ Sites où j'apparais </div>
+      <div class="banner b-warn">⚠ Notez chaque site où votre nom apparaît. Ajoutez l'URL exacte de la page si possible - elle sera incluse dans l'email RGPD.</div>
+      <div class="sites-list" id="sites-list"></div>
+      <button class="btn-add" onclick="addSiteRow()">+ Ajouter un site</button>
+      <div class="row">
+        <button class="btn btn-secondary" onclick="nav(0)">← Retour</button>
+        <button class="btn btn-primary" onclick="step1Next()">Vérifier les fuites →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ───── STEP 2 - FUITES ───── -->
+  <div class="section" id="s2">
+    <div class="card">
+      <div class="card-title">→ Have I Been Pwned - fuites de données</div>
+      <div class="banner b-info">ℹ Vérifiez si vos emails ont été compromis dans des fuites de données connues.</div>
+      <div class="row">
+        <div class="field">
+          <label>Email principal</label>
+          <input type="email" id="em1" placeholder="jean.dupont@gmail.com">
+        </div>
+      </div>
+      <div class="row">
+        <div class="field"><label>Email secondaire</label><input type="email" id="em2" placeholder=""></div>
+        <div class="field"><label>Email pro</label><input type="email" id="em3" placeholder=""></div>
+      </div>
+      <button class="btn btn-secondary" onclick="openHIBP()" style="margin-bottom:1rem">Ouvrir HIBP pour chaque email →</button>
+      <div id="hibp-links" style="margin-bottom:.8rem"></div>
+      <div class="field">
+        <label>Résultats trouvés (copier-coller depuis HIBP, ou laisser vide)</label>
+        <textarea id="hibp-results" rows="3" placeholder="ex: LinkedIn 2021 · Adobe 2019 · Collection #1"></textarea>
+      </div>
+      <br>
+      <div class="row">
+        <button class="btn btn-secondary" onclick="nav(1)">← Retour</button>
+        <button class="btn btn-primary" onclick="step2Next()">Générer les emails RGPD →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ───── STEP 3 - EMAILS RGPD ───── -->
+  <div class="section" id="s3">
+    <div class="card">
+      <div class="card-title">→ Emails de suppression RGPD</div>
+      <div class="banner b-info">ℹ Basé sur l'Art. 17 RGPD - droit à l'effacement. Délai légal de réponse : 30 jours. Il vous apparatiendra de l'adresser aux sites ou organismes publiant vos données afin d’en demander l’effacement.</div>
+      <div id="emails-content">
+        <div class="loading"><div class="spin"></div>Génération en cours…</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ───── STEP 4 - DÉRÉFÉRENCEMENT ───── -->
+  <div class="section" id="s4">
+    <div class="card">
+      <div class="card-title">→ Formulaires de déréférencement</div>
+      <div class="banner b-info">ℹ Le déréférencement (Art. 17 RGPD) permet de supprimer vos liens des résultats de recherche, indépendamment du site source. ⚠ Cela ne supprime pas l’information sur le site d’origine seulement le lien dans les résultats de recherche.</div>
+      <div class="deref-grid" id="deref-grid">…</div>
+    </div>
+    <div class="card">
+      <div class="card-title">→ Email générique de déréférencement</div>
+      <div class="banner b-warn">Pour les moteurs sans formulaire - envoyez directement à leur DPO.</div>
+      <div id="deref-email-wrap"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">→ Bilan de session</div>
+      <div id="stats-wrap"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">→ Outils complémentaires</div>
+      <div class="extra-grid" id="extra-grid">…</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const S = {
+  prenom:'', nom:'', alt_prenom:'', alt_nom:'', ville:'', pseudo:'',
+  modes:[], emails:[], sites:[], search_data:null
+};
+let maxStep = 0;
+let toastTimer = null;
+
+// ── Navigation ──
+function nav(n) {
+  if (n > maxStep) return;
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.p-step').forEach(b => b.classList.remove('active'));
+  document.getElementById('s'+n).classList.add('active');
+  document.getElementById('n'+n).classList.add('active');
+}
+function unlock(n) {
+  const b = document.getElementById('n'+n);
+  b.classList.remove('locked'); b.classList.add('done');
+  if (n > maxStep) maxStep = n;
+}
+
+// ── Toast ──
+function showToast(errors) {
+  document.getElementById('toast-list').innerHTML = errors.map(e => '· '+e).join('<br>');
+  document.getElementById('toast').classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(hideToast, 5000);
+}
+function hideToast() { document.getElementById('toast').classList.remove('show'); }
+
+// ── Field validation ──
+function setErr(id, msg) {
+  const inp = document.getElementById(id);
+  if (inp) inp.classList.add('error');
+  const err = document.getElementById('err-'+id);
+  if (err) { if (msg) err.textContent = msg; err.classList.add('show'); }
+}
+function clearErr(id) {
+  const inp = document.getElementById(id);
+  if (inp) inp.classList.remove('error');
+  const err = document.getElementById('err-'+id);
+  if (err) err.classList.remove('show');
+}
+
+// ── API ──
+async function api(path, method='GET', body=null) {
+  const opts = { method, headers: {'Content-Type':'application/json'} };
+  if (body) opts.body = JSON.stringify(body);
+  const r = await fetch('http://localhost:5000'+path, opts);
+  return r.json();
+}
+
+// ── Copy ──
+function copy(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  navigator.clipboard.writeText(el.innerText).then(() => {
+    const wrap = el.closest('.email-wrap') || el.closest('.card');
+    const btn = wrap && wrap.querySelector('.btn-ghost');
+    if (btn) { const t = btn.textContent; btn.textContent = '✓ Copié'; setTimeout(() => btn.textContent = t, 2000); }
+  });
+}
+
+// ── STEP 0 ──
+async function step0() {
+  const prenom = document.getElementById('prenom').value.trim();
+  const nom    = document.getElementById('nom').value.trim();
+  const modes  = [];
+  if (document.getElementById('mode_pn').checked)   modes.push('prenom_nom');
+  if (document.getElementById('mode_np').checked)   modes.push('nom_prenom');
+  if (document.getElementById('mode_sans').checked) modes.push('sans_guillemets');
+
+  let errors = [];
+  clearErr('prenom'); clearErr('nom'); clearErr('modes');
+
+  if (!prenom) { setErr('prenom', 'Prénom requis'); errors.push('Prénom manquant'); }
+  if (!nom)    { setErr('nom', 'Nom requis');       errors.push('Nom manquant'); }
+  if (!modes.length) {
+    setErr('modes', 'Sélectionnez au moins un mode');
+    document.getElementById('mode-group').classList.add('mode-chip-error');
+    errors.push('Aucun mode de recherche sélectionné');
+  } else {
+    document.getElementById('mode-group').classList.remove('mode-chip-error');
+  }
+
+  if (errors.length) { showToast(errors); return; }
+
+  S.prenom = prenom; S.nom = nom; S.modes = modes;
+  S.alt_prenom = document.getElementById('alt_prenom').value.trim();
+  S.alt_nom    = document.getElementById('alt_nom').value.trim();
+  S.ville      = document.getElementById('ville').value.trim();
+  S.pseudo     = document.getElementById('pseudo').value.trim();
+
+  const data = await api('/api/search-variants', 'POST', {
+    prenom: S.prenom, nom: S.nom, alt_prenom: S.alt_prenom,
+    alt_nom: S.alt_nom, ville: S.ville, pseudo: S.pseudo, modes: S.modes
+  });
+  S.search_data = data;
+
+  // Variants tags
+  document.getElementById('variants-box').innerHTML =
+    data.variants.map(v => `<span class="tag tg">${v}</span>`).join(' ');
+
+  // Engines - accordion
+  document.getElementById('engines-list').innerHTML = data.search_engines.map((e, i) => `
+    <div class="engine-item" id="eng-${i}">
+      <div class="engine-head" onclick="toggleEng(${i})">
+        <div>
+          <span class="engine-name">${e.nom}</span>
+          <span class="engine-type-badge">${e.type}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:.5rem">
+          <span class="tag tg">${e.liens.length} variante${e.liens.length > 1 ? 's' : ''}</span>
+          <span class="chevron">▼</span>
+        </div>
+      </div>
+      <div class="engine-links">
+        ${e.liens.map(l => `<a class="engine-link-btn" href="${l.url}" target="_blank">${l.variante} →</a>`).join('')}
+      </div>
+    </div>`).join('');
+
+  // Brokers
+  document.getElementById('brokers-grid').innerHTML = data.data_brokers.map(b => `
+    <div class="link-card">
+      <div class="link-card-info">
+        <div class="name">${b.nom}</div>
+        <div class="type">${b.desc}</div>
+      </div>
+      <a href="${b.url}" target="_blank">→ Vérifier</a>
+    </div>`).join('');
+
+  // Site rows init
+  document.getElementById('sites-list').innerHTML = '';
+  addSiteRow(); addSiteRow();
+
+  unlock(1); nav(1);
+}
+
+function toggleEng(i) { document.getElementById('eng-'+i).classList.toggle('open'); }
+
+// ── Site rows ──
+let sc = 0;
+function addSiteRow() {
+  sc++;
+  const id = 'sr' + sc;
+  const d = document.createElement('div');
+  d.className = 'site-row'; d.id = id;
+  d.innerHTML = `
+    <input type="text" placeholder="Nom du site  (ex: societe.com)" style="flex:1">
+    <input type="text" class="url-input" placeholder="URL exacte de la page  (optionnel)" style="flex:2">
+    <button class="btn-del" onclick="document.getElementById('${id}').remove()">✕</button>`;
+  document.getElementById('sites-list').appendChild(d);
+}
+
+function collectSites() {
+  return [...document.querySelectorAll('#sites-list .site-row')].map(r => {
+    const i = r.querySelectorAll('input');
+    return { site: i[0].value.trim(), url_page: i[1].value.trim() };
+  }).filter(s => s.site);
+}
+
+// ── STEP 1→2 ──
+function step1Next() { S.sites = collectSites(); unlock(2); nav(2); }
+
+// ── HIBP ──
+function openHIBP() {
+  const emails = ['em1','em2','em3'].map(id => document.getElementById(id).value.trim()).filter(Boolean);
+  const div = document.getElementById('hibp-links');
+  if (!emails.length) { div.innerHTML = '<div class="banner b-warn">Saisissez au moins un email ci-dessus.</div>'; return; }
+  div.innerHTML = emails.map(e => `
+    <div class="link-card" style="margin-bottom:.4rem">
+      <div class="link-card-info"><div class="name">${e}</div></div>
+      <a href="https://haveibeenpwned.com/account/${encodeURIComponent(e)}" target="_blank">→ Vérifier</a>
+    </div>`).join('');
+}
+
+// ── STEP 2→3 ──
+async function step2Next() {
+  S.emails = ['em1','em2','em3'].map(id => document.getElementById(id).value.trim()).filter(Boolean);
+  unlock(3); nav(3);
+
+  if (!S.sites.length) {
+    document.getElementById('emails-content').innerHTML =
+      '<div class="banner b-warn">⚠ Aucun site renseigné à l\'étape 2.</div>' +
+      '<div style="margin-top:.8rem"><button class="btn btn-secondary" onclick="nav(1)">← Ajouter des sites</button> ' +
+      '<button class="btn btn-primary" onclick="step3Next()" style="margin-left:.5rem">Passer au déréférencement →</button></div>';
+    return;
+  }
+
+  const data = await api('/api/generer-emails', 'POST', {
+    prenom: S.prenom, nom: S.nom, email: S.emails[0] || '', sites: S.sites
+  });
+  renderEmails(data.emails);
+}
+
+function renderEmails(emails) {
+  const html = emails.map((e, i) => {
+    const sid = 'em-body-' + i;
+    return `
+      <div class="email-wrap">
+        <div class="email-head">
+          <div class="email-head-left">
+            <div class="site">${e.site}</div>
+            <div class="to">À envoyer à : dpo@${e.site}  ·  privacy@${e.site}</div>
+          </div>
+          <button class="btn-ghost btn" onclick="copy('${sid}')">Copier</button>
+        </div>
+        <div class="email-body" id="${sid}">Objet : ${e.objet}
+
+${e.corps}</div>
+      </div>`;
+  }).join('');
+
+  document.getElementById('emails-content').innerHTML =
+    `<div class="banner b-info">✓ ${emails.length} email(s) générés - copiez et envoyez à chaque DPO.</div>` +
+    html +
+    `<br><div class="row">
+      <button class="btn btn-secondary" onclick="nav(1)">← Modifier les sites</button>
+      <button class="btn btn-primary" onclick="step3Next()">Déréférencement →</button>
+    </div>`;
+}
+
+// ── STEP 3→4 ──
+async function step3Next() {
+  unlock(4); nav(4);
+  const urls = S.sites.map(s => s.url_page).filter(Boolean);
+  const data = await api('/api/deref-links', 'POST', { prenom: S.prenom, nom: S.nom, urls });
+
+  document.getElementById('deref-grid').innerHTML = data.liens.map(l => {
+    const extra = l.email ? `<br>${l.email}` : '';
+    return `<div class="deref-card">
+      <h4>${l.moteur}</h4>
+      <p>${l.description}${extra}<br><span class="tag ty">${l.delai}</span> <span class="tag tp">${l.type}</span></p>
+      <a href="${l.url}" target="_blank">→ Accéder</a>
+    </div>`;
+  }).join('');
+
+  document.getElementById('deref-email-wrap').innerHTML = `
+    <div class="email-wrap">
+      <div class="email-head">
+        <div class="email-head-left"><div class="site">Email générique de déréférencement</div></div>
+        <button class="btn-ghost btn" onclick="copy('deref-body')">Copier</button>
+      </div>
+      <div class="email-body" id="deref-body">${data.email_deref}</div>
+    </div>`;
+
+  document.getElementById('stats-wrap').innerHTML = `
+    <div class="stats">
+      <div class="stat"><div class="stat-n">${S.sites.length}</div><div class="stat-l">Sites identifiés</div></div>
+      <div class="stat"><div class="stat-n">${S.emails.length}</div><div class="stat-l">Emails vérifiés</div></div>
+      <div class="stat"><div class="stat-n">${data.liens.length}</div><div class="stat-l">Formulaires déréf.</div></div>
+      <div class="stat"><div class="stat-n">30j</div><div class="stat-l">Délai légal RGPD</div></div>
+    </div>
+    <div class="banner b-info">✓ Conservez la preuve de vos envois (date, capture). Sans réponse sous 30j → saisir la CNIL.</div>`;
+
+  const tools = await api('/api/extra-tools');
+  document.getElementById('extra-grid').innerHTML = tools.map(t => `
+    <div class="extra-card">
+      <h4>${t.nom}<span class="cat-badge">${t.categorie}</span></h4>
+      <p>${t.desc}</p>
+      <a href="${t.url}" target="_blank">→ ${t.url.replace('https://','').split('/')[0]}</a>
+    </div>`).join('');
+}
+</script>
+</body>
+</html>

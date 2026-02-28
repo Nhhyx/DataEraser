@@ -69,7 +69,7 @@ Cordialement,
 
 @app.route("/")
 def index():
-    path = os.path.join(os.path.dirname(__file__), "src", "index.html")
+    path = os.path.join(os.path.dirname(__file__), "static", "index.html")
     with open(path, "r", encoding="utf-8") as f:
         return f.read()
 

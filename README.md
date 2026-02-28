@@ -18,10 +18,10 @@
 
 ## Lancement (choisissez selon votre système)
 
-### Mac - double-cliquer sur `mac-start.command`
-Si bloqué par macOS : clic droit → "Ouvrir" → "Ouvrir quand même"
+### Mac
+Dossier `release-mac` → double-clic `DataEraser`
 
-### Windows - double-cliquer sur `windows-start`
+### Windows
 
 ### Linux - dans le terminal :
 ```bash
