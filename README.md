@@ -22,6 +22,7 @@
 Dossier `release-mac` → double-clic `DataEraser`
 
 ### Windows
+Dossier `release-windows` → double-clic `DataEraser`
 
 ### Linux - dans le terminal :
 ```bash

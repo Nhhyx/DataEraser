@@ -77,10 +77,16 @@ Cordialement,
 # ─────────────────────────────────────────────
 
 @app.route("/")
-@app.route("/")
 def index():
     path = resource_path("static/index.html")
     return path.read_text(encoding="utf-8")
+
+@app.route('/shutdown', methods=['POST'])
+def shutdown():
+    func = request.environ.get('werkzeug.server.shutdown')
+    if func:
+        func()
+    os._exit(0)
 
 @app.route("/api/search-variants", methods=["POST"])
 def search_variants():

@@ -375,8 +375,12 @@ textarea{width:100%;resize:vertical;line-height:1.6}
     </div>
   </div>
 </div>
-
 <script>
+  window.addEventListener("beforeunload", function () {
+      navigator.sendBeacon("/shutdown");
+  });
+  setInterval(() => fetch("/ping"), 5000);
+
 const S = {
   prenom:'', nom:'', alt_prenom:'', alt_nom:'', ville:'', pseudo:'',
   modes:[], emails:[], sites:[], search_data:null
