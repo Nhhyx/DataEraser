@@ -8,8 +8,17 @@ from flask import Flask, jsonify, request, Response
 import urllib.parse
 from datetime import datetime
 import os
+import sys
+from pathlib import Path
 
 app = Flask(__name__)
+
+def resource_path(rel):
+    if getattr(sys, "frozen", False):
+        base = Path(sys._MEIPASS)
+    else:
+        base = Path(__file__).resolve().parent
+    return base / rel
 
 @app.after_request
 def add_cors(response):
@@ -68,11 +77,10 @@ Cordialement,
 # ─────────────────────────────────────────────
 
 @app.route("/")
+@app.route("/")
 def index():
-    path = os.path.join(os.path.dirname(__file__), "static", "index.html")
-    with open(path, "r", encoding="utf-8") as f:
-        return f.read()
-
+    path = resource_path("static/index.html")
+    return path.read_text(encoding="utf-8")
 
 @app.route("/api/search-variants", methods=["POST"])
 def search_variants():
