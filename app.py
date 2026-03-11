@@ -6,19 +6,11 @@ Lancer : python app.py  puis ouvrir http://localhost:5000
 
 from flask import Flask, jsonify, request, Response
 import urllib.parse
+import threading
 from datetime import datetime
 import os
-import sys
-from pathlib import Path
 
 app = Flask(__name__)
-
-def resource_path(rel):
-    if getattr(sys, "frozen", False):
-        base = Path(sys._MEIPASS)
-    else:
-        base = Path(__file__).resolve().parent
-    return base / rel
 
 @app.after_request
 def add_cors(response):
@@ -78,15 +70,10 @@ Cordialement,
 
 @app.route("/")
 def index():
-    path = resource_path("static/index.html")
-    return path.read_text(encoding="utf-8")
+    path = os.path.join(os.path.dirname(__file__), "static", "index.html")
+    with open(path, "r", encoding="utf-8") as f:
+        return f.read()
 
-@app.route('/shutdown', methods=['POST'])
-def shutdown():
-    func = request.environ.get('werkzeug.server.shutdown')
-    if func:
-        func()
-    os._exit(0)
 
 @app.route("/api/search-variants", methods=["POST"])
 def search_variants():
@@ -249,18 +236,10 @@ def extra_tools():
         {"nom": "Sherlock",        "desc": "OSINT username sur 300+ sites",          "url": "https://github.com/sherlock-project/sherlock",     "categorie": "technique"},
     ])
 
+@app.route("/shutdown", methods=["POST"])
+def shutdown():
+    def stop():
+        os._exit(0)
 
-if __name__ == "__main__":
-    import webbrowser, threading, time
-    def open_browser():
-        time.sleep(1.3)
-        webbrowser.open("http://localhost:5000")
-    threading.Thread(target=open_browser, daemon=True).start()
-    print("\n" + "="*50)
-    print("  DataEraser")
-    print("="*50)
-    print("  Ouverture auto du navigateur...")
-    print("  ou : http://localhost:5000")
-    print("  Ctrl+C pour arreter")
-    print("="*50 + "\n")
-    app.run(debug=False, port=5000, host="127.0.0.1")
+    threading.Timer(0.2, stop).start()
+    return jsonify({"ok": True})

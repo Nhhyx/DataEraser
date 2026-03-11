@@ -6,7 +6,7 @@
 	<dict>
 		<key>Resources/base_library.zip</key>
 		<data>
-		8ZosPV3ssaWUmvi3R5VmBZX3Mnc=
+		gZ5npttIAijfUU7o38MqArs04f0=
 		</data>
 		<key>Resources/flask-3.1.3.dist-info/INSTALLER</key>
 		<data>
@@ -18,7 +18,7 @@
 		</data>
 		<key>Resources/flask-3.1.3.dist-info/RECORD</key>
 		<data>
-		PdEp/nPUIuiQwoePf3KdtbJ9QAg=
+		vfm9aVszVe3qw7GFKBQgdz12vho=
 		</data>
 		<key>Resources/flask-3.1.3.dist-info/REQUESTED</key>
 		<data>
@@ -50,7 +50,7 @@
 		</data>
 		<key>Resources/importlib_metadata-8.7.1.dist-info/RECORD</key>
 		<data>
-		e7LUDOVBO/RejAo8FrRbmQMhP4Q=
+		NMXqaUw6LmVYvJ1yiY+tldTV6Vk=
 		</data>
 		<key>Resources/importlib_metadata-8.7.1.dist-info/WHEEL</key>
 		<data>
@@ -78,7 +78,7 @@
 		</data>
 		<key>Resources/itsdangerous-2.2.0.dist-info/RECORD</key>
 		<data>
-		LZVgTYS0+qsKtrpcrInOdw9GDuc=
+		RNMJowizi9AB+SDCOTsuSsc3iMg=
 		</data>
 		<key>Resources/itsdangerous-2.2.0.dist-info/WHEEL</key>
 		<data>
@@ -94,7 +94,7 @@
 		</data>
 		<key>Resources/markupsafe-3.0.3.dist-info/RECORD</key>
 		<data>
-		s+SVMpjRzg3bQERJTlRcOH6j5Ig=
+		zGoeEikdL3uU5l/i+B+Fohc/Zvg=
 		</data>
 		<key>Resources/markupsafe-3.0.3.dist-info/WHEEL</key>
 		<data>
@@ -108,9 +108,9 @@
 		<data>
 		9T4+HF2W8MlhRf2Ud+qNvTCs63s=
 		</data>
-		<key>Resources/src/index.html</key>
+		<key>Resources/static/index.html</key>
 		<data>
-		E7fqhQGS59Enw6uvpr5BI+VfyKo=
+		yaMk+z2Wa7wlksyQ/1RKRnUneeo=
 		</data>
 		<key>Resources/werkzeug-3.1.6.dist-info/INSTALLER</key>
 		<data>
@@ -122,7 +122,7 @@
 		</data>
 		<key>Resources/werkzeug-3.1.6.dist-info/RECORD</key>
 		<data>
-		rfh82HPwLICC3mSe2kGJ1dT1scE=
+		MHzjZ1Ggp9AyCdXMlY4FQlyNUPw=
 		</data>
 		<key>Resources/werkzeug-3.1.6.dist-info/WHEEL</key>
 		<data>
@@ -638,10 +638,10 @@
 			<key>requirement</key>
 			<string>cdhash H"8ead548080e2d8734c61fe245aa4abeb6e858416"</string>
 		</dict>
-		<key>Frameworks/src</key>
+		<key>Frameworks/static</key>
 		<dict>
 			<key>symlink</key>
-			<string>../Resources/src</string>
+			<string>../Resources/static</string>
 		</dict>
 		<key>Frameworks/werkzeug-3.1.6.dist-info</key>
 		<dict>
@@ -662,7 +662,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			U2wbS4J7yOBxgtaTIAJnChoK4qCIkKG0I3xMCH/lrZg=
+			/WMr8FJTY/4jYOdskE4C0GL3rQmYlIzSEAHmTZYfu4w=
 			</data>
 		</dict>
 		<key>Resources/flask-3.1.3.dist-info/INSTALLER</key>
@@ -683,7 +683,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			bAXcX4Jgi5g/Uj/GzQKN1l7eSWqFb1WseG81cgAISqk=
+			Y00+CQJqCYZRPbIwt3ZK0zJWmbapFYJMqPAS96O5s3w=
 			</data>
 		</dict>
 		<key>Resources/flask-3.1.3.dist-info/REQUESTED</key>
@@ -739,7 +739,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			d505OoMfhFkQM5Uj3Du1YRci/3FIGMq6Fc/ow2gAbD4=
+			76g4hI7QxFTtVDbJoJLVZYqED29VeGjpey6XiqPp5xc=
 			</data>
 		</dict>
 		<key>Resources/importlib_metadata-8.7.1.dist-info/WHEEL</key>
@@ -788,7 +788,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			n6/sVoBKHMbfEHqnxu+Cf55zNl0E6a1m3DxYBKBvZAY=
+			QAdhqBuQEfh5QvxJLkDtxca6T2FK2HO8UMhN9L+Mosk=
 			</data>
 		</dict>
 		<key>Resources/itsdangerous-2.2.0.dist-info/WHEEL</key>
@@ -821,7 +821,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			7CcYA2fTZOi/UhgucJTmOaOzWAyNaSSxDqKla1Hd3F0=
+			5U6tE84+XIShpMB/hkJQ8XwYj19EI2ZQCGAD2GlycVc=
 			</data>
 		</dict>
 		<key>Resources/markupsafe-3.0.3.dist-info/WHEEL</key>
@@ -850,11 +850,11 @@
 			<key>symlink</key>
 			<string>../Frameworks/python3.9</string>
 		</dict>
-		<key>Resources/src/index.html</key>
+		<key>Resources/static/index.html</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			vbn8mJmLQk14CkMYbWnnvBqek/WyxBZ3ipPIxWAUvRg=
+			+tMCZcN6/+cGT9YrVRvcEHrK2KjL75Q+vrHnulDbRyg=
 			</data>
 		</dict>
 		<key>Resources/werkzeug-3.1.6.dist-info/INSTALLER</key>
@@ -875,7 +875,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			cYCz3oOOpxjXWtStUMqJSW9Eb+xpyiNSpFya4Ewa63I=
+			MgT5763kecul7V9ymGyOdk4UXC2529O/oKEVef8wBFU=
 			</data>
 		</dict>
 		<key>Resources/werkzeug-3.1.6.dist-info/WHEEL</key>
