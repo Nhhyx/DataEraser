@@ -26,8 +26,8 @@ Dossier `release-windows` → double-clic `DataEraser`
 
 ### Linux - dans le terminal :
 ```bash
-chmod +x start.sh
-bash start.sh
+chmod +x DataEraser.sh
+bash DataEraser.sh
 ```
 
 > Le navigateur s'ouvre automatiquement sur http://localhost:5000
