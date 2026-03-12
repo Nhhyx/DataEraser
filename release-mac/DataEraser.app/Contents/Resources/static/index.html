@@ -425,10 +425,16 @@ function clearErr(id) {
 }
 
 // ── API ──
+// async function api(path, method='GET', body=null) {
+//   const opts = { method, headers: {'Content-Type':'application/json'} };
+//   if (body) opts.body = JSON.stringify(body);
+//   const r = await fetch('http://127.0.0.1:5000'+path, opts);
+//   return r.json();
+// }
 async function api(path, method='GET', body=null) {
   const opts = { method, headers: {'Content-Type':'application/json'} };
   if (body) opts.body = JSON.stringify(body);
-  const r = await fetch('http://localhost:5000'+path, opts);
+  const r = await fetch(path, opts);
   return r.json();
 }
 

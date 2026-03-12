@@ -9,6 +9,7 @@ import urllib.parse
 import threading
 from datetime import datetime
 import os
+import sys
 
 app = Flask(__name__)
 
@@ -68,11 +69,21 @@ Cordialement,
 #  ROUTES API
 # ─────────────────────────────────────────────
 
+def resource_path(relative_path):
+    base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+    return os.path.join(base_path, relative_path)
+
 @app.route("/")
 def index():
-    path = os.path.join(os.path.dirname(__file__), "static", "index.html")
+    path = resource_path(os.path.join("static", "index.html"))
     with open(path, "r", encoding="utf-8") as f:
         return f.read()
+    
+# @app.route("/")
+# def index():
+#     path = os.path.join(os.path.dirname(__file__), "static", "index.html")
+#     with open(path, "r", encoding="utf-8") as f:
+#         return f.read()
 
 
 @app.route("/api/search-variants", methods=["POST"])
