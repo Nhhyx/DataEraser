@@ -236,13 +236,10 @@ def extra_tools():
     return jsonify([
         {"nom": "Google Alerts",   "desc": "Surveillance temps reel de votre nom",  "url": "https://www.google.com/alerts",                    "categorie": "surveillance"},
         {"nom": "Have I Been Pwned","desc": "Fuites de donnees par email",           "url": "https://haveibeenpwned.com",                       "categorie": "fuites"},
-        {"nom": "JustDeleteMe",    "desc": "Liens directs pour supprimer vos comptes","url": "https://justdeleteme.xyz/fr",                     "categorie": "comptes"},
-        {"nom": "AccountKiller",   "desc": "Guides suppression de comptes",          "url": "https://www.accountkiller.com/fr",                 "categorie": "comptes"},
-        {"nom": "Deseat.me",       "desc": "Trouve tous vos comptes via Gmail",      "url": "https://www.deseat.me/",                          "categorie": "comptes"},
-        {"nom": "Namecheckr",      "desc": "Votre nom sur 100+ plateformes",         "url": "https://www.namecheckr.com/",                     "categorie": "surveillance"},
-        {"nom": "Privacy Bee",     "desc": "Opt-out data brokers automatique",       "url": "https://privacybee.com/",                         "categorie": "data-brokers"},
+        {"nom": "JustDeleteMe",    "desc": "Liens directs pour supprimer vos comptes sur les sites inscrits","url": "https://justdeleteme.xyz/fr",                     "categorie": "comptes"},
+        {"nom": "Namecheckr",      "desc": "Votre nom sur 100+ plateformes",         "url": "https://namechk.com/",                            "categorie": "surveillance"},
         {"nom": "Browserleaks",    "desc": "Ce que votre navigateur revele",         "url": "https://browserleaks.com/",                       "categorie": "technique"},
-        {"nom": "Sherlock",        "desc": "OSINT username sur 300+ sites",          "url": "https://github.com/sherlock-project/sherlock",     "categorie": "technique"},
+        {"nom": "Sherlock",        "desc": "OSINT sur +300 sites",          "url": "https://github.com/sherlock-project/sherlock",     "categorie": "technique"},
     ])
 
 @app.route("/shutdown", methods=["POST"])
