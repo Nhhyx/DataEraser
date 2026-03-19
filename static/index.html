@@ -45,7 +45,7 @@ h1 em{font-style:normal;color:var(--accent)}
 .field label{font-family:var(--mono);font-size:.83rem;color:var(--muted)}
 .field label .req{color:var(--accent);margin-left:.2rem}
 .row{display:flex;gap:.8rem;margin-bottom:.8rem;flex-wrap:wrap}
-input[type=text],input[type=email],textarea{
+input[type=text],input[type=email],input[type=tel],textarea{
   width:100%;background:var(--s2);border:1px solid var(--border);
   color:var(--text);padding:.85rem 1rem;font-family:var(--mono);font-size:1rem;
   border-radius:4px;outline:none;transition:border .15s,box-shadow .15s}
@@ -55,20 +55,16 @@ input.error{border-color:var(--danger)!important;box-shadow:0 0 0 3px rgba(255,5
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
 textarea{width:100%;resize:vertical;line-height:1.6}
 
-/* ── Inline field error ── */
+/* ── Field error ── */
 .field-error{font-family:var(--mono);font-size:.8rem;color:var(--danger);margin-top:.2rem;display:none;align-items:center;gap:.3rem}
 .field-error.show{display:flex}
 .field-error::before{content:'✕ '}
 
 /* ── Toast ── */
-#toast{
-  position:fixed;top:1.5rem;left:50%;
-  transform:translateX(-50%) translateY(-120px);
-  background:var(--s2);border:1px solid var(--danger);
-  border-radius:10px;padding:1rem 1.3rem;z-index:9999;
-  transition:transform .35s cubic-bezier(.34,1.56,.64,1);
-  font-family:var(--mono);font-size:.95rem;
-  display:flex;align-items:flex-start;gap:.75rem;
+#toast{position:fixed;top:1.5rem;left:50%;transform:translateX(-50%) translateY(-120px);
+  background:var(--s2);border:1px solid var(--danger);border-radius:10px;padding:1rem 1.3rem;
+  z-index:9999;transition:transform .35s cubic-bezier(.34,1.56,.64,1);
+  font-family:var(--mono);font-size:.95rem;display:flex;align-items:flex-start;gap:.75rem;
   max-width:420px;width:calc(100% - 3rem);
   box-shadow:0 12px 40px rgba(0,0,0,.6),0 0 0 1px rgba(255,56,100,.2)}
 #toast.show{transform:translateX(-50%) translateY(0)}
@@ -84,10 +80,8 @@ textarea{width:100%;resize:vertical;line-height:1.6}
 .mode-group{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1rem}
 .mode-chip{position:relative}
 .mode-chip input[type=checkbox]{position:absolute;opacity:0;width:0;height:0}
-.mode-chip label{
-  display:flex;align-items:center;gap:.5rem;padding:.5rem 1rem;
-  border:1px solid var(--border);border-radius:20px;cursor:pointer;
-  font-family:var(--mono);font-size:.9rem;color:var(--muted);
+.mode-chip label{display:flex;align-items:center;gap:.5rem;padding:.5rem 1rem;border:1px solid var(--border);
+  border-radius:20px;cursor:pointer;font-family:var(--mono);font-size:.9rem;color:var(--muted);
   background:var(--s2);transition:all .2s;user-select:none}
 .mode-chip input:checked + label{border-color:var(--accent);color:var(--accent);background:rgba(0,232,122,.08)}
 .mode-chip label:hover{border-color:rgba(0,232,122,.4);color:var(--text)}
@@ -111,10 +105,11 @@ textarea{width:100%;resize:vertical;line-height:1.6}
 .engine-type-badge{font-family:var(--mono);font-size:.78rem;color:var(--muted);margin-left:.5rem}
 .engine-links{display:none;flex-wrap:wrap;gap:.45rem;padding:.65rem .9rem;border-top:1px solid var(--border);background:rgba(0,0,0,.15)}
 .engine-item.open .engine-links{display:flex}
-.engine-link-btn{font-family:var(--mono);font-size:1rem;color:var(--accent);border:1px solid rgba(0,232,122,.35);padding:.3rem .65rem;border-radius:3px;text-decoration:none;transition:all .15s;white-space:nowrap}
+.engine-link-btn{font-family:var(--mono);font-size:.88rem;color:var(--accent);border:1px solid rgba(0,232,122,.35);padding:.3rem .65rem;border-radius:3px;text-decoration:none;transition:all .15s;white-space:nowrap;max-width:340px;overflow:hidden;text-overflow:ellipsis}
 .engine-link-btn:hover{background:var(--accent);color:var(--bg)}
 .chevron{font-size:1.05rem;color:var(--muted);transition:transform .2s;flex-shrink:0}
 .engine-item.open .chevron{transform:rotate(180deg)}
+.engine-type-tel{color:#38bdf8;border-color:rgba(56,189,248,.3);background:rgba(56,189,248,.07)}
 
 /* ── Broker grid ── */
 .link-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.6rem}
@@ -126,13 +121,18 @@ textarea{width:100%;resize:vertical;line-height:1.6}
 
 /* ── Site rows ── */
 .sites-list{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1rem}
-.site-row{display:flex;gap:.5rem;align-items:center}
-.site-row input{flex:1}
-.site-row .url-input{flex:2}
+.site-row{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+.site-row input{flex:1;min-width:120px}
+.site-row .url-input{flex:2;min-width:200px}
 .btn-del{background:rgba(255,56,100,.08);border:1px solid rgba(255,56,100,.25);color:var(--danger);padding:.42rem .75rem;border-radius:4px;cursor:pointer;font-size:.8rem;transition:all .2s;flex-shrink:0}
 .btn-del:hover{background:var(--danger);color:#fff}
 .btn-add{background:rgba(0,232,122,.07);border:1px solid rgba(0,232,122,.25);color:var(--accent);padding:.5rem 1rem;border-radius:4px;cursor:pointer;font-family:var(--mono);font-size:.9rem;margin-bottom:1rem;transition:all .2s}
 .btn-add:hover{background:rgba(0,232,122,.16)}
+
+/* ── Trouver DPO hint ── */
+.dpo-hint{background:rgba(139,92,246,.06);border:1px solid rgba(139,92,246,.25);border-radius:6px;padding:.85rem 1rem;font-family:var(--mono);font-size:.88rem;color:#c4b5fd;line-height:1.7;margin-bottom:1rem}
+.dpo-hint strong{color:#a78bfa}
+.dpo-hint code{background:rgba(255,255,255,.06);padding:.1rem .35rem;border-radius:3px;font-size:.85rem}
 
 /* ── Email blocks ── */
 .email-wrap{border:1px solid var(--border);border-radius:7px;overflow:hidden;margin-bottom:1rem}
@@ -145,12 +145,18 @@ textarea{width:100%;resize:vertical;line-height:1.6}
 .banner{padding:.7rem 1rem;border-radius:5px;font-family:var(--mono);font-size:.9rem;margin-bottom:1rem;display:flex;gap:.5rem;line-height:1.5}
 .b-info{background:rgba(0,232,122,.05);border:1px solid rgba(0,232,122,.2);color:#8ef5c8}
 .b-warn{background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.2);color:var(--warn)}
+.b-danger{background:rgba(255,56,100,.06);border:1px solid rgba(255,56,100,.3);color:#ff8fa3}
+.b-breach{background:rgba(255,56,100,.08);border:1px solid rgba(255,56,100,.4);border-radius:8px;padding:1rem 1.2rem;font-family:var(--mono);font-size:.9rem;line-height:1.75;color:#fca5a5}
+.b-breach strong{color:var(--danger);display:block;font-size:1rem;margin-bottom:.5rem}
+.b-breach ul{margin:.4rem 0 0 .5rem;padding-left:1rem}
+.b-breach li{margin-bottom:.25rem}
 
 /* ── Tags ── */
 .tag{display:inline-block;font-family:var(--mono);font-size:.78rem;padding:.1rem .4rem;border-radius:3px;margin:.1rem}
 .tg{background:rgba(0,232,122,.1);color:var(--accent);border:1px solid rgba(0,232,122,.3)}
 .ty{background:rgba(245,158,11,.1);color:var(--warn);border:1px solid rgba(245,158,11,.3)}
 .tp{background:rgba(139,92,246,.1);color:#a78bfa;border:1px solid rgba(139,92,246,.3)}
+.tt{background:rgba(56,189,248,.1);color:#38bdf8;border:1px solid rgba(56,189,248,.3)}
 
 /* ── Spinner ── */
 .spin{display:inline-block;width:14px;height:14px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .6s linear infinite}
@@ -162,7 +168,7 @@ textarea{width:100%;resize:vertical;line-height:1.6}
 .deref-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.75rem}
 .deref-card{background:var(--s2);border:1px solid var(--border);border-radius:6px;padding:1rem}
 .deref-card h4{font-size:1.05rem;font-weight:600;margin-bottom:.25rem}
-.deref-card p{font-family:var(--mono);font-size:1rem;color:var(--muted);margin-bottom:.6rem}
+.deref-card p{font-family:var(--mono);font-size:.88rem;color:var(--muted);margin-bottom:.6rem;line-height:1.5}
 .deref-card a{display:inline-block;color:var(--purple);font-family:var(--mono);font-size:.86rem;border:1px solid rgba(139,92,246,.4);padding:.25rem .6rem;border-radius:3px;text-decoration:none}
 .deref-card a:hover{background:var(--purple);color:#fff}
 
@@ -176,7 +182,7 @@ textarea{width:100%;resize:vertical;line-height:1.6}
 .extra-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:.7rem}
 .extra-card{background:var(--s2);border:1px solid var(--border);border-radius:6px;padding:.9rem}
 .extra-card h4{font-size:1rem;font-weight:600;margin-bottom:.25rem}
-.extra-card p{font-family:var(--mono);font-size:1rem;color:var(--muted);margin-bottom:.6rem}
+.extra-card p{font-family:var(--mono);font-size:.88rem;color:var(--muted);margin-bottom:.6rem}
 .extra-card a{font-family:var(--mono);font-size:.83rem;color:var(--accent);text-decoration:none}
 .extra-card a:hover{text-decoration:underline}
 .cat-badge{font-family:var(--mono);font-size:.52rem;padding:.1rem .4rem;border-radius:3px;background:var(--s3);color:var(--muted);margin-left:.4rem;vertical-align:middle}
@@ -184,17 +190,71 @@ textarea{width:100%;resize:vertical;line-height:1.6}
 /* ── Variants ── */
 .variants-box{background:var(--s2);border:1px solid var(--border);border-radius:5px;padding:.9rem;margin-bottom:1rem;line-height:2.2}
 
+/* ── RS Info cards ── */
+.rs-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.75rem;margin-top:.8rem}
+.rs-card{background:var(--s2);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.rs-card-head{display:flex;align-items:center;justify-content:space-between;padding:.7rem .9rem;cursor:pointer;user-select:none;transition:background .15s}
+.rs-card-head:hover{background:var(--s3)}
+.rs-card-name{font-weight:600;font-size:.88rem;display:flex;align-items:center;gap:.5rem}.rs-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.rs-card-body{display:none;padding:.7rem .9rem;border-top:1px solid var(--border);font-family:var(--mono);font-size:.85rem;line-height:1.7;color:#c9d1d9}
+.rs-card.open .rs-card-body{display:block}
+.rs-card.open .chevron{transform:rotate(180deg)}
+.rs-row{margin-bottom:.5rem}
+.rs-label{color:var(--muted);font-size:.78rem;margin-bottom:.15rem}
+.rs-val{color:var(--text)}
+.rs-note{background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-radius:4px;padding:.4rem .6rem;color:var(--warn);font-size:.82rem;margin-top:.5rem}
+.rs-dpo{color:#a78bfa;font-size:.82rem;word-break:break-all}
+.rs-dpo a{color:#a78bfa}
+
 /* ── Sections ── */
 .section{display:none}
 .section.active{display:block;animation:fadeIn .3s ease}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 
-@media(max-width:580px){.row{flex-direction:column}.site-row{flex-wrap:wrap}}
+/* ── Section separator ── */
+.sep{border:none;border-top:1px solid var(--border);margin:1.2rem 0}
+
+/* ── Recherche par image ── */
+.img-drop-zone{border:2px dashed var(--border);border-radius:8px;padding:2rem;text-align:center;cursor:pointer;transition:all .25s;background:var(--s2);position:relative;margin-bottom:1rem}
+.img-drop-zone:hover,.img-drop-zone.dragover{border-color:var(--accent);background:rgba(0,232,122,.04)}
+.img-drop-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.img-drop-icon{font-size:2.2rem;margin-bottom:.5rem;display:block}
+.img-drop-label{font-family:var(--mono);font-size:.9rem;color:var(--muted)}
+.img-drop-label strong{color:var(--accent)}
+.img-preview-wrap{display:none;margin-bottom:1rem;text-align:center}
+.img-preview-wrap img{max-height:180px;max-width:100%;border-radius:6px;border:1px solid var(--border);object-fit:contain}
+.img-preview-name{font-family:var(--mono);font-size:.8rem;color:var(--muted);margin-top:.4rem}
+.img-url-row{display:flex;gap:.6rem;margin-bottom:1rem;align-items:center}
+.img-url-row input{flex:1}
+.img-engines-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.65rem;margin-top:.8rem}
+.img-engine-card{background:var(--s2);border:1px solid var(--border);border-radius:7px;padding:.85rem 1rem;display:flex;flex-direction:column;gap:.35rem}
+.img-engine-card .ie-name{font-weight:700;font-size:1rem;display:flex;align-items:center;gap:.45rem}
+.img-engine-card .ie-desc{font-family:var(--mono);font-size:.8rem;color:var(--muted);line-height:1.5}
+.img-engine-card .ie-free{font-family:var(--mono);font-size:.72rem;padding:.1rem .4rem;border-radius:3px}
+.img-engine-card .ie-actions{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.2rem}
+.img-engine-card .ie-btn{font-family:var(--mono);font-size:.82rem;padding:.3rem .65rem;border-radius:3px;text-decoration:none;border:1px solid;transition:all .15s;cursor:pointer;display:inline-flex;align-items:center;gap:.3rem;background:transparent}
+.ie-btn-upload{color:var(--accent);border-color:rgba(0,232,122,.4)}
+.ie-btn-upload:hover{background:var(--accent);color:var(--bg)}
+.ie-btn-url{color:#a78bfa;border-color:rgba(139,92,246,.4)}
+.ie-btn-url:hover{background:var(--purple);color:#fff}
+.ie-btn-direct{color:#38bdf8;border-color:rgba(56,189,248,.4)}
+.ie-btn-direct:hover{background:#38bdf8;color:var(--bg)}
+.free-yes{background:rgba(0,232,122,.1);color:var(--accent);border:1px solid rgba(0,232,122,.3)}
+.free-limit{background:rgba(245,158,11,.1);color:var(--warn);border:1px solid rgba(245,158,11,.3)}
+.free-no{background:rgba(255,56,100,.1);color:var(--danger);border:1px solid rgba(255,56,100,.3)}
+.img-note{font-family:var(--mono);font-size:.82rem;color:var(--muted);background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:5px;padding:.6rem .8rem;margin-top:.5rem;line-height:1.6}
+.img-tabs{display:flex;gap:0;border:1px solid var(--border);border-radius:5px;overflow:hidden;margin-bottom:1rem}
+.img-tab{flex:1;padding:.55rem .5rem;background:var(--s2);border:none;color:var(--muted);font-family:var(--mono);font-size:.82rem;text-align:center;cursor:pointer;border-right:1px solid var(--border);transition:all .2s}
+.img-tab:last-child{border-right:none}
+.img-tab.active{background:var(--purple);color:#fff;font-weight:700}
+.img-tab-content{display:none}
+.img-tab-content.active{display:block}
+
+@media(max-width:580px){.row{flex-direction:column}.site-row{flex-wrap:wrap}.img-engines-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
-<!-- Toast notification -->
 <div id="toast">
   <div class="t-icon">⚠️</div>
   <div class="t-body">
@@ -223,7 +283,7 @@ textarea{width:100%;resize:vertical;line-height:1.6}
   <div class="section active" id="s0">
     <div class="card">
       <div class="card-title">→ Votre identité</div>
-      <div class="banner b-info">ℹ Toutes vos données restent en local. Aucun envoi automatique à des tiers.</div>
+      <div class="banner b-info">⚠️ Toutes vos données restent en local. Aucun envoi automatique à des tiers.</div>
 
       <div class="row">
         <div class="field">
@@ -255,9 +315,17 @@ textarea{width:100%;resize:vertical;line-height:1.6}
           <input type="text" id="ville" placeholder="Paris">
         </div>
         <div class="field">
-          <label>Pseudo / username</label>
+          <label>Pseudo / username <span style="font-size:.55rem;color:var(--muted)">(profils directs + combinaisons)</span></label>
           <input type="text" id="pseudo" placeholder="jdupont42">
         </div>
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label>Numéro de téléphone <span style="font-size:.55rem;color:var(--muted)">(optionnel – recherche inversée)</span></label>
+          <input type="tel" id="telephone" placeholder="06 12 34 56 78">
+        </div>
+        <div class="field"></div>
       </div>
 
       <!-- Modes de recherche -->
@@ -286,24 +354,51 @@ textarea{width:100%;resize:vertical;line-height:1.6}
   <div class="section" id="s1">
     <div class="card">
       <div class="card-title">→ Requêtes générées</div>
-        <p style="font-family:var(--mono);font-size:1.05rem;color:var(--muted);margin-bottom:.8rem">Veillez à verifier tous les modes. Attention "Nom prenom" =/= Prenom Nom ni même à "Prenom Nom" (sans guillemets)</p>
+      <p style="font-family:var(--mono);font-size:.9rem;color:var(--muted);margin-bottom:.8rem">Toutes les combinaisons issues des champs remplis. Les guillemets forcent la recherche exacte.</p>
       <div class="variants-box" id="variants-box">…</div>
     </div>
 
     <div class="card">
       <div class="card-title">→ Moteurs de recherche</div>
-      <p style="font-family:var(--mono);font-size:1.05rem;color:var(--muted);margin-bottom:.8rem">Cliquez chaque moteur pour dérouler ses variantes, puis ouvrez chaque lien.</p>
+      <p style="font-family:var(--mono);font-size:.9rem;color:var(--muted);margin-bottom:.8rem">Chaque moteur liste toutes ses variantes. Cliquez chaque lien et notez les résultats trouvés.</p>
       <div id="engines-list">…</div>
     </div>
 
     <div class="card">
-      <div class="card-title">→ Registres publics</div>
-      <div class="banner b-warn">⚠ Ces données sont issues de registres officiels (Infogreffe, Verif.com, Societe.com). La suppression n'est possible que si vous n'êtes plus dirigeant d'une société active. Si votre société est encore active, limitez la diffusion de vos données personnelles dans le registre SIRENE : <a href="https://statut-diffusion-sirene.insee.fr/" target="_blank" style="color:var(--warn);text-decoration:underline">statut-diffusion-sirene.insee.fr</a></div>      <div class="link-grid" id="brokers-grid">…</div>
+      <div class="card-title">→ Registres publics & annuaires</div>
+      <div class="banner b-warn">⚠ Ces données sont issues de registres officiels (Infogreffe, Verif.com, Societe.com). La suppression n'est possible que si vous n'êtes plus dirigeant d'une société active. Si votre société est encore active, limitez la diffusion via : <a href="https://statut-diffusion-sirene.insee.fr/" target="_blank" style="color:var(--warn);text-decoration:underline">statut-diffusion-sirene.insee.fr</a></div>
+      <div class="link-grid" id="brokers-grid">…</div>
+    </div>
+
+    <!-- ── RECHERCHE PAR IMAGE ── -->
+    <div class="card">
+      <div class="card-title">→ Recherche par image — reverse image search</div>
+      <p style="font-family:var(--mono);font-size:.9rem;color:var(--muted);margin-bottom:1rem">Retrouvez où vos photos circulent sur le web.</p>
+
+      <div class="img-tab-content" id="imgtab-url">
+        <div class="img-url-row">
+          <input type="text" id="img-url-input" placeholder="https://example.com/photo.jpg" oninput="imgUrlChanged()">
+          <button class="btn btn-secondary" style="padding:.85rem 1rem;white-space:nowrap;font-size:.9rem" onclick="imgUrlPreview()">Prévisualiser →</button>
+        </div>
+        <div class="img-preview-wrap" id="img-url-preview-wrap">
+          <img id="img-url-preview" src="" alt="preview" onerror="this.parentElement.style.display='none'">
+        </div>
+      </div>
+
+      <div class="img-engines-grid" id="img-engines-grid"></div>
     </div>
 
     <div class="card">
-      <div class="card-title">→ Sites où j'apparais </div>
-      <div class="banner b-warn">⚠ Notez chaque site où votre nom apparaît. Ajoutez l'URL exacte de la page si possible - elle sera incluse dans l'email RGPD.</div>
+      <div class="card-title">→ Sites où j'apparais</div>
+      <div class="banner b-warn">⚠ Notez chaque site où votre nom apparaît. Ajoutez l'URL exacte de la page si possible — elle sera incluse dans l'email RGPD.</div>
+
+      <div class="dpo-hint">
+        <strong>💡 Comment trouver le contact DPO / suppression d'un site ?</strong><br>
+        1. Cherchez une page <code>/privacy</code>, <code>/legal</code> ou <code>/rgpd</code> sur le site<br>
+        2. Cherchez sur Google : <code>"[nom du site]" contact DPO RGPD</code><br>
+        3. Trouvez le formulaire RGPD du site
+      </div>
+
       <div class="sites-list" id="sites-list"></div>
       <button class="btn-add" onclick="addSiteRow()">+ Ajouter un site</button>
       <div class="row">
@@ -316,8 +411,8 @@ textarea{width:100%;resize:vertical;line-height:1.6}
   <!-- ───── STEP 2 - FUITES ───── -->
   <div class="section" id="s2">
     <div class="card">
-      <div class="card-title">→ Have I Been Pwned - fuites de données</div>
-      <div class="banner b-info">ℹ Vérifiez si vos emails ont été compromis dans des fuites de données connues.</div>
+      <div class="card-title">→ Have I Been Pwned – fuites de données</div>
+      <div class="banner b-info">⚠️ Vérifiez si vos emails ont été compromis dans des fuites de données connues.</div>
       <div class="row">
         <div class="field">
           <label>Email principal</label>
@@ -330,10 +425,14 @@ textarea{width:100%;resize:vertical;line-height:1.6}
       </div>
       <button class="btn btn-secondary" onclick="openHIBP()" style="margin-bottom:1rem">Ouvrir HIBP pour chaque email →</button>
       <div id="hibp-links" style="margin-bottom:.8rem"></div>
+
       <div class="field">
-        <label>Résultats trouvés (copier-coller depuis HIBP, ou laisser vide)</label>
-        <textarea id="hibp-results" rows="3" placeholder="ex: LinkedIn 2021 · Adobe 2019 · Collection #1"></textarea>
+        <label>Résultats trouvés <span style="font-size:.55rem;color:var(--muted)">(copier-coller depuis HIBP, ou laisser vide)</span></label>
+        <textarea id="hibp-results" rows="3" placeholder="ex: LinkedIn 2021 · Adobe 2019 · Collection #1" oninput="updateBreachAdvice()"></textarea>
       </div>
+
+      <div id="breach-advice" style="margin-top:.8rem;display:none"></div>
+
       <br>
       <div class="row">
         <button class="btn btn-secondary" onclick="nav(1)">← Retour</button>
@@ -346,7 +445,7 @@ textarea{width:100%;resize:vertical;line-height:1.6}
   <div class="section" id="s3">
     <div class="card">
       <div class="card-title">→ Emails de suppression RGPD</div>
-      <div class="banner b-info">ℹ Basé sur l'Art. 17 RGPD - droit à l'effacement. Délai légal de réponse : 30 jours. Il vous apparatiendra de l'adresser aux sites ou organismes publiant vos données afin d’en demander l’effacement.</div>
+      <div class="banner b-info">⚠ Basé sur l'Art. 17 RGPD – droit à l'effacement. Délai légal de réponse : 30 jours. Il vous appartiendra d'adresser ces emails aux sites ou organismes publiant vos données.</div>
       <div id="emails-content">
         <div class="loading"><div class="spin"></div>Génération en cours…</div>
       </div>
@@ -357,12 +456,12 @@ textarea{width:100%;resize:vertical;line-height:1.6}
   <div class="section" id="s4">
     <div class="card">
       <div class="card-title">→ Formulaires de déréférencement</div>
-      <div class="banner b-info">ℹ Le déréférencement (Art. 17 RGPD) permet de supprimer vos liens des résultats de recherche, indépendamment du site source. ⚠ Cela ne supprime pas l’information sur le site d’origine seulement le lien dans les résultats de recherche.</div>
+      <div class="banner b-info">⚠ Le déréférencement (Art. 17 RGPD) retire vos liens des résultats de recherche, indépendamment du site source. ⚠ Cela ne supprime pas l'information sur le site d'origine — seulement le lien dans les moteurs.</div>
       <div class="deref-grid" id="deref-grid">…</div>
     </div>
     <div class="card">
       <div class="card-title">→ Email générique de déréférencement</div>
-      <div class="banner b-warn">Pour les moteurs sans formulaire - envoyez directement à leur DPO.</div>
+      <div class="banner b-warn">Pour les moteurs sans formulaire — envoyez directement à leur DPO.</div>
       <div id="deref-email-wrap"></div>
     </div>
     <div class="card">
@@ -373,15 +472,21 @@ textarea{width:100%;resize:vertical;line-height:1.6}
       <div class="card-title">→ Outils complémentaires</div>
       <div class="extra-grid" id="extra-grid">…</div>
     </div>
+    <div class="card">
+      <div class="card-title">→ Infos : traitement des données par les réseaux sociaux</div>
+      <p style="font-family:var(--mono);font-size:.9rem;color:var(--muted);margin-bottom:.8rem">À titre informatif — ce que chaque plateforme collecte, conserve et partage sur vous.</p>
+      <div class="rs-grid" id="rs-info-grid">…</div>
+    </div>
   </div>
 </div>
+
 <script>
-  window.addEventListener("beforeunload", () => {
+window.addEventListener("beforeunload", () => {
   navigator.sendBeacon("/shutdown");
 });
 
 const S = {
-  prenom:'', nom:'', alt_prenom:'', alt_nom:'', ville:'', pseudo:'',
+  prenom:'', nom:'', alt_prenom:'', alt_nom:'', ville:'', pseudo:'', telephone:'',
   modes:[], emails:[], sites:[], search_data:null
 };
 let maxStep = 0;
@@ -394,6 +499,7 @@ function nav(n) {
   document.querySelectorAll('.p-step').forEach(b => b.classList.remove('active'));
   document.getElementById('s'+n).classList.add('active');
   document.getElementById('n'+n).classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
 }
 function unlock(n) {
   const b = document.getElementById('n'+n);
@@ -425,12 +531,6 @@ function clearErr(id) {
 }
 
 // ── API ──
-// async function api(path, method='GET', body=null) {
-//   const opts = { method, headers: {'Content-Type':'application/json'} };
-//   if (body) opts.body = JSON.stringify(body);
-//   const r = await fetch('http://127.0.0.1:5000'+path, opts);
-//   return r.json();
-// }
 async function api(path, method='GET', body=null) {
   const opts = { method, headers: {'Content-Type':'application/json'} };
   if (body) opts.body = JSON.stringify(body);
@@ -447,6 +547,21 @@ function copy(id) {
     const btn = wrap && wrap.querySelector('.btn-ghost');
     if (btn) { const t = btn.textContent; btn.textContent = '✓ Copié'; setTimeout(() => btn.textContent = t, 2000); }
   });
+}
+
+// ── Engine type label ──
+const TYPE_LABELS = {
+  general:'général', prive:'privé', europeen:'européen', ecolo:'écolo',
+  russe:'russe', images:'images', actualites:'actualités', pro:'pro',
+  social:'social', video:'vidéo', dev:'dev', telephone:'téléphone', osint:'osint'
+};
+
+// ── Badge couleur par type ──
+function typeBadgeClass(type) {
+  if (type === 'telephone') return 'tt';
+  if (type === 'social') return 'tp';
+  if (type === 'pro' || type === 'dev') return 'ty';
+  return 'tg';
 }
 
 // ── STEP 0 ──
@@ -470,18 +585,19 @@ async function step0() {
   } else {
     document.getElementById('mode-group').classList.remove('mode-chip-error');
   }
-
   if (errors.length) { showToast(errors); return; }
 
-  S.prenom = prenom; S.nom = nom; S.modes = modes;
+  S.prenom    = prenom; S.nom = nom; S.modes = modes;
   S.alt_prenom = document.getElementById('alt_prenom').value.trim();
   S.alt_nom    = document.getElementById('alt_nom').value.trim();
   S.ville      = document.getElementById('ville').value.trim();
   S.pseudo     = document.getElementById('pseudo').value.trim();
+  S.telephone  = document.getElementById('telephone').value.trim();
 
   const data = await api('/api/search-variants', 'POST', {
     prenom: S.prenom, nom: S.nom, alt_prenom: S.alt_prenom,
-    alt_nom: S.alt_nom, ville: S.ville, pseudo: S.pseudo, modes: S.modes
+    alt_nom: S.alt_nom, ville: S.ville, pseudo: S.pseudo,
+    telephone: S.telephone, modes: S.modes
   });
   S.search_data = data;
 
@@ -489,23 +605,27 @@ async function step0() {
   document.getElementById('variants-box').innerHTML =
     data.variants.map(v => `<span class="tag tg">${v}</span>`).join(' ');
 
-  // Engines - accordion
-  document.getElementById('engines-list').innerHTML = data.search_engines.map((e, i) => `
-    <div class="engine-item" id="eng-${i}">
+  // Engines accordion — avec variantes listées comme boutons
+  document.getElementById('engines-list').innerHTML = data.search_engines.map((e, i) => {
+    const badgeClass = typeBadgeClass(e.type);
+    const isPhone = e.type === 'telephone';
+    return `
+    <div class="engine-item${isPhone ? ' engine-phone' : ''}" id="eng-${i}">
       <div class="engine-head" onclick="toggleEng(${i})">
-        <div>
+        <div style="display:flex;align-items:center;gap:.5rem">
           <span class="engine-name">${e.nom}</span>
-          <span class="engine-type-badge">${e.type}</span>
+          <span class="tag ${badgeClass}" style="font-size:.7rem;padding:.05rem .35rem">${TYPE_LABELS[e.type]||e.type}</span>
         </div>
         <div style="display:flex;align-items:center;gap:.5rem">
-          <span class="tag tg">${e.liens.length} variante${e.liens.length > 1 ? 's' : ''}</span>
+          <span class="tag ${badgeClass}">${e.liens.length} variante${e.liens.length>1?'s':''}</span>
           <span class="chevron">▼</span>
         </div>
       </div>
       <div class="engine-links">
-        ${e.liens.map(l => `<a class="engine-link-btn" href="${l.url}" target="_blank">${l.variante} →</a>`).join('')}
+        ${e.liens.map(l => `<a class="engine-link-btn" href="${l.url}" target="_blank" title="${l.variante}">${l.variante} →</a>`).join('')}
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 
   // Brokers
   document.getElementById('brokers-grid').innerHTML = data.data_brokers.map(b => `
@@ -517,6 +637,26 @@ async function step0() {
       <a href="${b.url}" target="_blank">→ Vérifier</a>
     </div>`).join('');
 
+  // RS info cards
+  document.getElementById('rs-info-grid').innerHTML = data.rs_info.map((rs, i) => {
+    const collecteItems = rs.collecte.map(c => `<li>${c}</li>`).join('');
+    return `
+    <div class="engine-item" id="rsc-${i}">
+      <div class="engine-head" onclick="toggleRS(${i})">
+        <div style="display:flex;align-items:center;gap:.5rem">
+          <span class="rs-dot" style="background:${rs.couleur}"></span>
+          <span class="engine-name">${rs.nom}</span>
+      </div>
+      <span class="chevron">▼</span>
+      </div>
+      <div class="engine-links" style="display:none;flex-direction:column;gap:.5rem">        <div class="rs-row"><div class="rs-label">📥 Collecte</div><ul style="padding-left:1.1rem;color:var(--text)">${collecteItems}</ul></div>
+        <div class="rs-row" style="margin-top:.5rem"><div class="rs-label">🗓 Conservation</div><div class="rs-val">${rs.conservation}</div></div>
+        <div class="rs-row" style="margin-top:.5rem"><div class="rs-label">🤝 Partage</div><div class="rs-val">${rs.partage}</div></div>
+        <div class="rs-note">ℹ️ ${rs.note}</div>
+      </div>
+    </div>`;
+  }).join('');
+
   // Site rows init
   document.getElementById('sites-list').innerHTML = '';
   addSiteRow(); addSiteRow();
@@ -525,6 +665,7 @@ async function step0() {
 }
 
 function toggleEng(i) { document.getElementById('eng-'+i).classList.toggle('open'); }
+function toggleRS(i)  { document.getElementById('rsc-'+i).classList.toggle('open'); }
 
 // ── Site rows ──
 let sc = 0;
@@ -534,8 +675,8 @@ function addSiteRow() {
   const d = document.createElement('div');
   d.className = 'site-row'; d.id = id;
   d.innerHTML = `
-    <input type="text" placeholder="Nom du site  (ex: societe.com)" style="flex:1">
-    <input type="text" class="url-input" placeholder="URL exacte de la page  (optionnel)" style="flex:2">
+    <input type="text" placeholder="Nom du site  (ex: societe.com)" style="flex:1;min-width:120px">
+    <input type="text" class="url-input" placeholder="URL exacte de la page  (optionnel)" style="flex:2;min-width:180px">
     <button class="btn-del" onclick="document.getElementById('${id}').remove()">✕</button>`;
   document.getElementById('sites-list').appendChild(d);
 }
@@ -545,6 +686,26 @@ function collectSites() {
     const i = r.querySelectorAll('input');
     return { site: i[0].value.trim(), url_page: i[1].value.trim() };
   }).filter(s => s.site);
+}
+
+// ── Conseils breach ──
+function updateBreachAdvice() {
+  const val = document.getElementById('hibp-results').value.trim();
+  const div = document.getElementById('breach-advice');
+  if (!val) { div.style.display = 'none'; return; }
+  div.style.display = 'block';
+  div.innerHTML = `
+    <div class="b-breach">
+      <strong>🚨 Des fuites ont été détectées — Actions prioritaires :</strong>
+      <ul>
+        <li><strong>1. Changer immédiatement</strong> le mot de passe du ou des comptes compromis (email + compte du service concerné)</li>
+        <li><strong>2. Changer l'adresse email</strong> associée au compte touché si possible, ou créer un alias</li>
+        <li><strong>3. Changer TOUS les mots de passe</strong> des autres comptes où vous avez réutilisé le même mot de passe — les attaquants testent automatiquement les mots de passe volés sur tous les services connus (<em>credential stuffing</em>)</li>
+        <li><strong>4. Activer la double authentification (2FA)</strong> sur tous vos comptes importants (email, banque, réseaux sociaux)</li>
+        <li><strong>5. Utiliser un gestionnaire de mots de passe</strong> pour générer des mots de passe uniques et forts : <a href="https://bitwarden.com" target="_blank" style="color:#a78bfa">Bitwarden</a> (open-source, gratuit), <a href="https://keepassxc.org" target="_blank" style="color:#a78bfa">KeePassXC</a> (100% local)</li>
+        <li><strong>6. Surveiller</strong> vos comptes bancaires et emails pour détecter toute activité suspecte</li>
+      </ul>
+    </div>`;
 }
 
 // ── STEP 1→2 ──
@@ -589,7 +750,6 @@ function renderEmails(emails) {
         <div class="email-head">
           <div class="email-head-left">
             <div class="site">${e.site}</div>
-            <div class="to">À envoyer à : dpo@${e.site}  ·  privacy@${e.site}</div>
           </div>
           <button class="btn-ghost btn" onclick="copy('${sid}')">Copier</button>
         </div>
@@ -600,13 +760,331 @@ ${e.corps}</div>
   }).join('');
 
   document.getElementById('emails-content').innerHTML =
-    `<div class="banner b-info">✓ ${emails.length} email(s) générés - copiez et envoyez à chaque DPO.</div>` +
+    `<div class="banner b-info">✓ ${emails.length} email(s) générés — copiez et envoyez à chaque DPO.</div>` +
+    `<div class="dpo-hint" style="margin-bottom:1rem">
+      <strong>💡 Trouver l'adresse du DPO pour chaque site :</strong><br>
+      Cherchez sur Google : <code>"[nom site]" contact DPO RGPD effacement</code> — ou consultez la page <code>/privacy</code> ou <code>/legal</code> du site.
+    </div>` +
     html +
     `<br><div class="row">
       <button class="btn btn-secondary" onclick="nav(1)">← Modifier les sites</button>
       <button class="btn btn-primary" onclick="step3Next()">Déréférencement →</button>
     </div>`;
 }
+
+// ══════════════════════════════════════════════
+//  RECHERCHE PAR IMAGE
+// ══════════════════════════════════════════════
+
+// État image
+const IMG = { file: null, dataUrl: null, urlMode: false, publicUrl: '' };
+
+// Définition des moteurs de reverse image search
+const IMG_ENGINES = [
+  {
+    id: 'google_lens',
+    nom: 'Google Lens',
+    emoji: '🔍',
+    desc: 'Le plus puissant — reconnaissance visuelle, contexte, correspondances exactes et similaires.',
+    free: 'oui',
+    freeLabel: 'Gratuit',
+    supportsUpload: true,
+    supportsUrl: true,
+    uploadFn: 'imgLensUpload',
+    urlFn: 'imgLensUrl',
+    directUrl: 'https://lens.google.com',
+    directLabel: 'Ouvrir Google Lens',
+  },
+  {
+    id: 'yandex',
+    nom: 'Yandex Images',
+    emoji: '🇷🇺',
+    desc: 'Très efficace pour les visages et photos de personnes. Résultats souvent différents de Google.',
+    free: 'oui',
+    freeLabel: 'Gratuit',
+    supportsUpload: true,
+    supportsUrl: true,
+    uploadFn: 'imgYandexUpload',
+    urlFn: 'imgYandexUrl',
+    directUrl: 'https://yandex.com/images/',
+    directLabel: 'Ouvrir Yandex Images',
+  },
+  {
+    id: 'bing_visual',
+    nom: 'Bing Visual Search',
+    emoji: '🔷',
+    desc: 'Recherche visuelle Microsoft — bonne couverture des sites anglophones et des profils sociaux.',
+    free: 'oui',
+    freeLabel: 'Gratuit',
+    supportsUpload: true,
+    supportsUrl: true,
+    uploadFn: 'imgBingUpload',
+    urlFn: 'imgBingUrl',
+    directUrl: 'https://www.bing.com/visualsearch',
+    directLabel: 'Ouvrir Bing Visual',
+  },
+  {
+    id: 'tineye',
+    nom: 'TinEye',
+    emoji: '👁️',
+    desc: 'Spécialisé en correspondances exactes d\'images. Idéal pour savoir si une photo a été copiée ailleurs.',
+    free: 'limite',
+    freeLabel: 'Gratuit limité',
+    supportsUpload: true,
+    supportsUrl: true,
+    uploadFn: 'imgTineyeUpload',
+    urlFn: 'imgTineyeUrl',
+    directUrl: 'https://tineye.com',
+    directLabel: 'Ouvrir TinEye',
+  },
+  {
+    id: 'pimeyes',
+    nom: 'PimEyes',
+    emoji: '👤',
+    desc: 'Moteur spécialisé dans la reconnaissance faciale. Trouve les visages sur le web. Résultats complets en payant.',
+    free: 'limite',
+    freeLabel: 'Gratuit limité',
+    supportsUpload: true,
+    supportsUrl: false,
+    uploadFn: 'imgPimeyesUpload',
+    directUrl: 'https://pimeyes.com',
+    directLabel: 'Ouvrir PimEyes',
+  },
+  {
+    id: 'facecheck',
+    nom: 'FaceCheck.ID',
+    emoji: '🧑',
+    desc: 'Reconnaissance faciale orientée OSINT — retrouve profils sociaux et sites à partir d\'un visage.',
+    free: 'limite',
+    freeLabel: 'Gratuit limité',
+    supportsUpload: true,
+    supportsUrl: false,
+    uploadFn: 'imgFacecheckUpload',
+    directUrl: 'https://facecheck.id',
+    directLabel: 'Ouvrir FaceCheck.ID',
+  },
+  {
+    id: 'baidu',
+    nom: 'Baidu Images',
+    emoji: '🇨🇳',
+    desc: 'Moteur chinois — utile si la photo circule sur des sites asiatiques ou des copies chinoises.',
+    free: 'oui',
+    freeLabel: 'Gratuit',
+    supportsUpload: false,
+    supportsUrl: true,
+    urlFn: 'imgBaiduUrl',
+    directUrl: 'https://image.baidu.com',
+    directLabel: 'Ouvrir Baidu Images',
+  },
+];
+
+// ── Render grille moteurs image ──
+function renderImgEngines() {
+  const freeClass = { oui: 'free-yes', limite: 'free-limit', non: 'free-no' };
+  document.getElementById('img-engines-grid').innerHTML = IMG_ENGINES.map(e => {
+    const hasSomething = IMG.dataUrl || IMG.publicUrl;
+    const canUpload = e.supportsUpload && IMG.dataUrl;
+    const canUrl = e.supportsUrl && IMG.publicUrl;
+
+    let actions = '';
+    actions += `<a class="ie-btn ie-btn-direct" href="${e.directUrl}" target="_blank">↗ Ouvrir le site</a>`;
+
+    return `<div class="img-engine-card">
+      <div class="ie-name">${e.emoji} ${e.nom} <span class="ie-free ${freeClass[e.free]||'free-yes'}">${e.freeLabel}</span></div>
+      <div class="ie-desc">${e.desc}</div>
+      <div class="ie-actions">${actions}</div>
+    </div>`;
+  }).join('');
+}
+
+// ── Tabs upload / url ──
+function imgTab(tab) {
+  document.querySelectorAll('.img-tab').forEach((t,i) => t.classList.toggle('active', (tab==='upload'&&i===0)||(tab==='url'&&i===1)));
+  document.getElementById('imgtab-upload').classList.toggle('active', tab==='upload');
+  document.getElementById('imgtab-url').classList.toggle('active', tab==='url');
+  IMG.urlMode = tab === 'url';
+}
+
+// ── Drag & drop ──
+function imgDragOver(e) { e.preventDefault(); document.getElementById('img-drop').classList.add('dragover'); }
+function imgDragLeave()  { document.getElementById('img-drop').classList.remove('dragover'); }
+function imgDrop(e) {
+  e.preventDefault();
+  document.getElementById('img-drop').classList.remove('dragover');
+  const file = e.dataTransfer.files[0];
+  if (file && file.type.startsWith('image/')) imgLoadFile(file);
+}
+
+// ── Sélection fichier ──
+function imgFileSelected(input) {
+  if (input.files[0]) imgLoadFile(input.files[0]);
+}
+
+function imgLoadFile(file) {
+  IMG.file = file;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    IMG.dataUrl = e.target.result;
+    document.getElementById('img-preview').src = IMG.dataUrl;
+    document.getElementById('img-preview-name').textContent = file.name + ' · ' + (file.size/1024).toFixed(0) + ' Ko';
+    document.getElementById('img-preview-wrap').style.display = 'block';
+    document.getElementById('img-drop').style.display = 'none';
+    renderImgEngines();
+  };
+  reader.readAsDataURL(file);
+}
+
+function imgReset() {
+  IMG.file = null; IMG.dataUrl = null;
+  document.getElementById('img-preview-wrap').style.display = 'none';
+  document.getElementById('img-drop').style.display = 'block';
+  document.getElementById('img-file-input').value = '';
+  renderImgEngines();
+}
+
+// ── URL image ──
+function imgUrlChanged() {
+  IMG.publicUrl = document.getElementById('img-url-input').value.trim();
+  renderImgEngines();
+}
+function imgUrlPreview() {
+  const url = document.getElementById('img-url-input').value.trim();
+  if (!url) return;
+  IMG.publicUrl = url;
+  const wrap = document.getElementById('img-url-preview-wrap');
+  const img  = document.getElementById('img-url-preview');
+  img.src = url;
+  img.style.display = 'block';
+  wrap.style.display = 'block';
+  renderImgEngines();
+}
+
+// ── Helpers ──
+function imgB64Pure() {
+  // dataUrl = "data:image/jpeg;base64,XXXX" → on extrait juste XXXX
+  if (!IMG.dataUrl) return '';
+  return IMG.dataUrl.split(',')[1] || '';
+}
+function imgMime() {
+  if (!IMG.dataUrl) return 'image/jpeg';
+  return IMG.dataUrl.split(';')[0].split(':')[1] || 'image/jpeg';
+}
+
+// ── Helpers pour soumettre des formulaires avec fichier ──
+function imgSubmitForm(action, fieldName, useFile) {
+  if (!IMG.file && !IMG.dataUrl) return;
+  const form = document.createElement('form');
+  form.method = 'POST';
+  form.action = action;
+  form.enctype = 'multipart/form-data';
+  form.target = '_blank';
+  form.style.display = 'none';
+
+  // Certains moteurs acceptent le form POST direct, d'autres non.
+  // On utilise principalement l'approche "ouvrir le site + instruction"
+  document.body.appendChild(form);
+  form.submit();
+  document.body.removeChild(form);
+}
+
+// ══ GOOGLE LENS ══
+function imgLensUpload() {
+  if (!IMG.dataUrl) return;
+  // Google Lens accepte le drag & drop ou le copier-coller, pas de POST API public.
+  // On ouvre Lens et on affiche un toast d'instruction.
+  window.open('https://lens.google.com', '_blank');
+  showImgToast('Google Lens ouvert — glissez votre image dans la zone de dépôt, ou collez-la (Ctrl+V).');
+}
+function imgLensUrl() {
+  const url = IMG.publicUrl;
+  if (!url) return;
+  // URL directe Google Lens avec image publique
+  window.open(`https://lens.google.com/uploadbyurl?url=${encodeURIComponent(url)}`, '_blank');
+}
+
+// ══ YANDEX ══
+function imgYandexUpload() {
+  if (!IMG.dataUrl) return;
+  window.open('https://yandex.com/images/', '_blank');
+  showImgToast('Yandex ouvert — cliquez l\'icône appareil photo 📷 dans la barre de recherche, puis uploadez votre image.');
+}
+function imgYandexUrl() {
+  if (!IMG.publicUrl) return;
+  window.open(`https://yandex.com/images/search?url=${encodeURIComponent(IMG.publicUrl)}&rpt=imageview`, '_blank');
+}
+
+// ══ BING VISUAL ══
+function imgBingUpload() {
+  if (!IMG.dataUrl) return;
+  window.open('https://www.bing.com/visualsearch', '_blank');
+  showImgToast('Bing Visual ouvert — cliquez "Recherche visuelle" puis uploadez votre image.');
+}
+function imgBingUrl() {
+  if (!IMG.publicUrl) return;
+  window.open(`https://www.bing.com/images/search?view=detailv2&iss=sbi&q=imgurl:${encodeURIComponent(IMG.publicUrl)}`, '_blank');
+}
+
+// ══ TINEYE ══
+function imgTineyeUpload() {
+  if (!IMG.dataUrl) return;
+  window.open('https://tineye.com', '_blank');
+  showImgToast('TinEye ouvert — cliquez l\'icône upload (flèche vers le haut) et sélectionnez votre image.');
+}
+function imgTineyeUrl() {
+  if (!IMG.publicUrl) return;
+  window.open(`https://tineye.com/search?url=${encodeURIComponent(IMG.publicUrl)}`, '_blank');
+}
+
+// ══ PIMEYES ══
+function imgPimeyesUpload() {
+  if (!IMG.dataUrl) return;
+  window.open('https://pimeyes.com', '_blank');
+  showImgToast('PimEyes ouvert — cliquez "Upload Photo" et sélectionnez votre image. Les résultats complets sont en version payante, mais les correspondances sont visibles en gratuit.');
+}
+
+// ══ FACECHECK.ID ══
+function imgFacecheckUpload() {
+  if (!IMG.dataUrl) return;
+  window.open('https://facecheck.id', '_blank');
+  showImgToast('FaceCheck.ID ouvert — cliquez l\'icône appareil photo et uploadez votre image. Résultats partiels en gratuit.');
+}
+
+// ══ SEARCH4FACES ══
+function imgSearch4FacesUpload() {
+  if (!IMG.dataUrl) return;
+  window.open('https://search4faces.com', '_blank');
+  showImgToast('Search4Faces ouvert — uploadez votre image directement sur la page d\'accueil.');
+}
+
+// ══ BAIDU ══
+function imgBaiduUrl() {
+  if (!IMG.publicUrl) return;
+  window.open(`https://image.baidu.com/search/index?tn=baiduimage&ps=1&ct=201326592&lm=-1&cl=2&nc=1&ie=utf-8&dyTabStr=&word=${encodeURIComponent(IMG.publicUrl)}`, '_blank');
+}
+
+// ── Toast spécifique image ──
+function showImgToast(msg) {
+  // Réutilise le toast principal mais avec couleur neutre
+  const toast = document.getElementById('toast');
+  const list  = document.getElementById('toast-list');
+  const title = toast.querySelector('.t-title');
+  toast.style.borderColor = 'rgba(0,232,122,.4)';
+  title.style.color = 'var(--accent)';
+  title.textContent = 'Instructions';
+  list.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    hideToast();
+    // Reset couleurs
+    toast.style.borderColor = '';
+    title.style.color = '';
+    title.textContent = 'Champs requis manquants';
+  }, 7000);
+}
+
+// Init grille au chargement de la page (sans image sélectionnée)
+document.addEventListener('DOMContentLoaded', () => { renderImgEngines(); });
 
 // ── STEP 3→4 ──
 async function step3Next() {
@@ -615,10 +1093,9 @@ async function step3Next() {
   const data = await api('/api/deref-links', 'POST', { prenom: S.prenom, nom: S.nom, urls });
 
   document.getElementById('deref-grid').innerHTML = data.liens.map(l => {
-    const extra = l.email ? `<br>${l.email}` : '';
     return `<div class="deref-card">
       <h4>${l.moteur}</h4>
-      <p>${l.description}${extra}<br><span class="tag ty">${l.delai}</span> <span class="tag tp">${l.type}</span></p>
+      <p>${l.description}<br><span class="tag ty">${l.delai}</span> <span class="tag tp">${l.type}</span></p>
       <a href="${l.url}" target="_blank">→ Accéder</a>
     </div>`;
   }).join('');
@@ -632,12 +1109,15 @@ async function step3Next() {
       <div class="email-body" id="deref-body">${data.email_deref}</div>
     </div>`;
 
+  const breachTxt = document.getElementById('hibp-results').value.trim();
   document.getElementById('stats-wrap').innerHTML = `
     <div class="stats">
       <div class="stat"><div class="stat-n">${S.sites.length}</div><div class="stat-l">Sites identifiés</div></div>
       <div class="stat"><div class="stat-n">${S.emails.length}</div><div class="stat-l">Emails vérifiés</div></div>
       <div class="stat"><div class="stat-n">${data.liens.length}</div><div class="stat-l">Formulaires déréf.</div></div>
       <div class="stat"><div class="stat-n">30j</div><div class="stat-l">Délai légal RGPD</div></div>
+      ${S.telephone ? '<div class="stat"><div class="stat-n" style="color:#38bdf8">📞</div><div class="stat-l">Tél. recherché</div></div>' : ''}
+      ${breachTxt ? '<div class="stat"><div class="stat-n" style="color:var(--danger)">⚠</div><div class="stat-l">Fuites détectées</div></div>' : ''}
     </div>
     <div class="banner b-info">✓ Conservez la preuve de vos envois (date, capture). Sans réponse sous 30j → saisir la CNIL.</div>`;
 

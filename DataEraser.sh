@@ -1,6 +1,4 @@
 #!/bin/bash
-# DataEraser - Lanceur Mac/Linux
-# Double-cliquer ou exécuter dans le terminal
 
 set -e
 DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -12,7 +10,6 @@ echo "║        DataEraser  🛡️               ║"
 echo "╚══════════════════════════════════════╝"
 echo ""
 
-# Vérifier Python
 PY=""
 for cmd in python3 python; do
   if command -v "$cmd" &>/dev/null; then
@@ -25,12 +22,6 @@ if [ -z "$PY" ]; then
   echo "❌ Python 3 non trouvé."
   echo ""
   echo "Installez-le depuis : https://www.python.org/downloads/"
-  echo ""
-  if [[ "$OSTYPE" == "darwin"* ]]; then
-    echo "Sur Mac, vous pouvez aussi lancer :"
-    echo "  brew install python"
-  fi
-  echo ""
   read -p "Appuyez sur Entrée pour fermer..."
   exit 1
 fi
@@ -53,4 +44,4 @@ echo "🚀 Démarrage - le navigateur va s'ouvrir automatiquement"
 echo "   Ctrl+C pour arrêter l'outil"
 echo ""
 
-$PY app.py
+$PY launcher.py
