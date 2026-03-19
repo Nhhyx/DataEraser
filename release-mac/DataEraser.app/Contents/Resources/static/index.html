@@ -403,7 +403,7 @@ textarea{width:100%;resize:vertical;line-height:1.6}
   <!-- ───── STEP 2 - FUITES ───── -->
   <div class="section" id="s2">
     <div class="card">
-      <div class="card-title">→ Have I Been Pwned – fuites de données</div>
+      <div class="card-title">→ Have I Been Pwned - fuites de données</div>
       <div class="banner b-info">Vérifiez si vos emails ont été compromis dans des fuites de données connues.</div>
       <div class="row">
         <div class="field">
@@ -417,15 +417,17 @@ textarea{width:100%;resize:vertical;line-height:1.6}
       </div>
       <button class="btn btn-secondary" onclick="openHIBP()" style="margin-bottom:1rem">Ouvrir HIBP pour chaque email →</button>
       <div id="hibp-links" style="margin-bottom:.8rem"></div>
-
-      <div class="field">
-        <label>Résultats trouvés <span style="font-size:.55rem;color:var(--muted)">(copier-coller depuis HIBP, ou laisser vide)</span></label>
-        <textarea id="hibp-results" rows="3" placeholder="ex: LinkedIn 2021 · Adobe 2019 · Collection #1" oninput="updateBreachAdvice()"></textarea>
-      </div>
-
-      <div id="breach-advice" style="margin-top:.8rem;display:none"></div>
-
-      <br>
+          <div class="b-breach" style="border-radius:8px;padding:1rem 1.2rem;margin-bottom:1.2rem">
+      <strong>🚨 Si des fuites sont détectées - Actions prioritaires :</strong>
+      <ul>
+        <li><strong>1. Changer immédiatement</strong> le mot de passe du ou des comptes compromis</li>
+        <li><strong>2. Changer l'adresse email</strong> associée au compte touché si possible, ou créer un alias</li>
+        <li><strong>3. Changer TOUS les mots de passe</strong> des autres comptes où vous avez réutilisé le même mot de passe - les attaquants testent automatiquement les mots de passe volés sur tous les services connus (<em>credential stuffing</em>)</li>
+        <li><strong>4. Activer la double authentification (2FA)</strong> sur tous vos comptes importants (email, banque, réseaux sociaux)</li>
+        <li><strong>5. Utiliser un gestionnaire de mots de passe</strong> : <a href="https://bitwarden.com" target="_blank" style="color:#a78bfa">Bitwarden</a> (open-source, gratuit) ou <a href="https://keepassxc.org" target="_blank" style="color:#a78bfa">KeePassXC</a> (100% local)</li>
+        <li><strong>6. Surveiller</strong> vos comptes bancaires et emails pour détecter toute activité suspecte</li>
+      </ul>
+    </div>
       <div class="row">
         <button class="btn btn-secondary" onclick="nav(1)">← Retour</button>
         <button class="btn btn-primary" onclick="step2Next()">Générer les emails RGPD →</button>
@@ -860,25 +862,6 @@ function collectSites() {
 }
 
 // ── Conseils breach ──
-function updateBreachAdvice() {
-  const val = document.getElementById('hibp-results').value.trim();
-  const div = document.getElementById('breach-advice');
-  if (!val) { div.style.display = 'none'; return; }
-  div.style.display = 'block';
-  div.innerHTML = `
-    <div class="b-breach">
-      <strong>🚨 Des fuites ont été détectées - Actions prioritaires :</strong>
-      <ul>
-        <li><strong>1. Changer immédiatement</strong> le mot de passe du ou des comptes compromis (email + compte du service concerné)</li>
-        <li><strong>2. Changer l'adresse email</strong> associée au compte touché si possible, ou créer un alias</li>
-        <li><strong>3. Changer TOUS les mots de passe</strong> des autres comptes où vous avez réutilisé le même mot de passe - les attaquants testent automatiquement les mots de passe volés sur tous les services connus (<em>credential stuffing</em>)</li>
-        <li><strong>4. Activer la double authentification (2FA)</strong> sur tous vos comptes importants (email, banque, réseaux sociaux)</li>
-        <li><strong>5. Utiliser un gestionnaire de mots de passe</strong> pour générer des mots de passe uniques et forts : <a href="https://bitwarden.com" target="_blank" style="color:#a78bfa">Bitwarden</a> (open-source, gratuit), <a href="https://keepassxc.org" target="_blank" style="color:#a78bfa">KeePassXC</a> (100% local)</li>
-        <li><strong>6. Surveiller</strong> vos comptes bancaires et emails pour détecter toute activité suspecte</li>
-      </ul>
-    </div>`;
-}
-
 // ── STEP 1→2 ──
 function step1Next() { S.sites = collectSites(); unlock(2); nav(2); }
 
@@ -1281,7 +1264,7 @@ async function step3Next() {
       <div class="email-body" id="deref-body">${data.email_deref}</div>
     </div>`;
 
-  const breachTxt = document.getElementById('hibp-results').value.trim();
+  const breachTxt = false;
   document.getElementById('stats-wrap').innerHTML = `
     <div class="stats">
       <div class="stat"><div class="stat-n">${S.sites.length}</div><div class="stat-l">Sites identifiés</div></div>
@@ -1290,8 +1273,7 @@ async function step3Next() {
       <div class="stat"><div class="stat-n">30j</div><div class="stat-l">Délai légal RGPD</div></div>
       ${S.telephone ? '<div class="stat"><div class="stat-n" style="color:#38bdf8">📞</div><div class="stat-l">Tél. recherché</div></div>' : ''}
       ${breachTxt ? '<div class="stat"><div class="stat-n" style="color:var(--danger)">⚠</div><div class="stat-l">Fuites détectées</div></div>' : ''}
-    </div>`
-    // <div class="banner b-info">✓ Conservez la preuve de vos envois (date, capture). Sans réponse sous 30j → saisir la CNIL.</div>`;
+    </div>`;
 }
 
 // ── STEP 4→5 ──
