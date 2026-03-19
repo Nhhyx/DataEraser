@@ -228,8 +228,7 @@ textarea{width:100%;resize:vertical;line-height:1.6}
 .img-url-row input{flex:1}
 .img-engines-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.65rem;margin-top:.8rem}
 .img-engine-card{background:var(--s2);border:1px solid var(--border);border-radius:7px;padding:.85rem 1rem;display:flex;flex-direction:column;gap:.35rem}
-.img-engine-card .ie-name{font-weight:700;font-size:1rem;display:flex;align-items:center;gap:.45rem}
-.img-engine-card .ie-desc{font-family:var(--mono);font-size:.8rem;color:var(--muted);line-height:1.5}
+.img-engine-card .ie-name{font-weight:600;font-size:.88rem;display:flex;align-items:center;gap:.45rem}.img-engine-card .ie-desc{font-family:var(--mono);font-size:.8rem;color:var(--muted);line-height:1.5}
 .img-engine-card .ie-free{font-family:var(--mono);font-size:.72rem;padding:.1rem .4rem;border-radius:3px}
 .img-engine-card .ie-actions{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.2rem}
 .img-engine-card .ie-btn{font-family:var(--mono);font-size:.82rem;padding:.3rem .65rem;border-radius:3px;text-decoration:none;border:1px solid;transition:all .15s;cursor:pointer;display:inline-flex;align-items:center;gap:.3rem;background:transparent}
@@ -277,13 +276,14 @@ textarea{width:100%;resize:vertical;line-height:1.6}
     <button class="p-step locked" onclick="nav(2)" id="n2">03<br>FUITES</button>
     <button class="p-step locked" onclick="nav(3)" id="n3">04<br>EMAILS RGPD</button>
     <button class="p-step locked" onclick="nav(4)" id="n4">05<br>DÉRÉFÉRENCEMENT</button>
+    <button class="p-step locked" onclick="nav(5)" id="n5">06<br>INFOS/OUTILS</button>
   </nav>
 
   <!-- ───── STEP 0 - IDENTITÉ ───── -->
   <div class="section active" id="s0">
     <div class="card">
       <div class="card-title">→ Votre identité</div>
-      <div class="banner b-info">⚠️ Toutes vos données restent en local. Aucun envoi automatique à des tiers.</div>
+      <div class="banner b-info">Toutes vos données restent en local. Aucun envoi automatique à des tiers.</div>
 
       <div class="row">
         <div class="field">
@@ -372,7 +372,7 @@ textarea{width:100%;resize:vertical;line-height:1.6}
 
     <!-- ── RECHERCHE PAR IMAGE ── -->
     <div class="card">
-      <div class="card-title">→ Recherche par image — reverse image search</div>
+      <div class="card-title">→ Recherche par image - reverse image search</div>
       <p style="font-family:var(--mono);font-size:.9rem;color:var(--muted);margin-bottom:1rem">Retrouvez où vos photos circulent sur le web.</p>
 
       <div class="img-tab-content" id="imgtab-url">
@@ -390,15 +390,7 @@ textarea{width:100%;resize:vertical;line-height:1.6}
 
     <div class="card">
       <div class="card-title">→ Sites où j'apparais</div>
-      <div class="banner b-warn">⚠ Notez chaque site où votre nom apparaît. Ajoutez l'URL exacte de la page si possible — elle sera incluse dans l'email RGPD.</div>
-
-      <div class="dpo-hint">
-        <strong>💡 Comment trouver le contact DPO / suppression d'un site ?</strong><br>
-        1. Cherchez une page <code>/privacy</code>, <code>/legal</code> ou <code>/rgpd</code> sur le site<br>
-        2. Cherchez sur Google : <code>"[nom du site]" contact DPO RGPD</code><br>
-        3. Trouvez le formulaire RGPD du site
-      </div>
-
+      <p style="font-family:var(--mono);font-size:.9rem;color:var(--muted);margin-bottom:1rem">Notez chaque site où votre nom apparaît. Ajoutez l'URL exacte de la page si possible - elle sera incluse dans l'email RGPD.</p>
       <div class="sites-list" id="sites-list"></div>
       <button class="btn-add" onclick="addSiteRow()">+ Ajouter un site</button>
       <div class="row">
@@ -412,7 +404,7 @@ textarea{width:100%;resize:vertical;line-height:1.6}
   <div class="section" id="s2">
     <div class="card">
       <div class="card-title">→ Have I Been Pwned – fuites de données</div>
-      <div class="banner b-info">⚠️ Vérifiez si vos emails ont été compromis dans des fuites de données connues.</div>
+      <div class="banner b-info">Vérifiez si vos emails ont été compromis dans des fuites de données connues.</div>
       <div class="row">
         <div class="field">
           <label>Email principal</label>
@@ -445,7 +437,7 @@ textarea{width:100%;resize:vertical;line-height:1.6}
   <div class="section" id="s3">
     <div class="card">
       <div class="card-title">→ Emails de suppression RGPD</div>
-      <div class="banner b-info">⚠ Basé sur l'Art. 17 RGPD – droit à l'effacement. Délai légal de réponse : 30 jours. Il vous appartiendra d'adresser ces emails aux sites ou organismes publiant vos données.</div>
+      <div class="banner b-info">Basé sur l'Art. 17 RGPD – droit à l'effacement. Délai légal de réponse : 30 jours. Il vous appartiendra d'adresser ces emails aux sites ou organismes publiant vos données.</div>
       <div id="emails-content">
         <div class="loading"><div class="spin"></div>Génération en cours…</div>
       </div>
@@ -454,27 +446,203 @@ textarea{width:100%;resize:vertical;line-height:1.6}
 
   <!-- ───── STEP 4 - DÉRÉFÉRENCEMENT ───── -->
   <div class="section" id="s4">
+    <div class="banner b-info">✓ Conservez la preuve de vos envois (date, capture). Sans réponse sous 30j → saisir la CNIL.</div>
     <div class="card">
       <div class="card-title">→ Formulaires de déréférencement</div>
-      <div class="banner b-info">⚠ Le déréférencement (Art. 17 RGPD) retire vos liens des résultats de recherche, indépendamment du site source. ⚠ Cela ne supprime pas l'information sur le site d'origine — seulement le lien dans les moteurs.</div>
+      <div class="banner b-warn">⚠ Le déréférencement (Art. 17 RGPD) retire vos liens des résultats de recherche, indépendamment du site source. Cela ne supprime pas l'information sur le site d'origine - seulement le lien dans les moteurs.</div>
       <div class="deref-grid" id="deref-grid">…</div>
     </div>
     <div class="card">
       <div class="card-title">→ Email générique de déréférencement</div>
-      <div class="banner b-warn">Pour les moteurs sans formulaire — envoyez directement à leur DPO.</div>
+      <div class="banner b-warn">Pour les moteurs sans formulaire - envoyez directement à leur DPO.</div>
       <div id="deref-email-wrap"></div>
     </div>
+
+    <!-- ── ID PUBLICITAIRE ── -->
     <div class="card">
+      <div class="card-title">→ Identifiant publicitaire - trouver, réinitialiser, refuser</div>
+      <p style="font-family:var(--mono);font-size:.9rem;color:var(--muted);margin-bottom:1rem">Chaque appareil possède un identifiant unique utilisé par les apps et réseaux sociaux pour vous cibler entre plateformes - sans avoir besoin de votre nom.</p>
+
+      <div class="banner b-warn">⚠ Cet identifiant est différent de vos cookies - il persiste même après avoir vidé le cache ou changé de navigateur.</div>
+
+      <!-- Accordéons par OS -->
+      <div style="margin-top:.8rem" id="adid-list">
+
+        <div class="engine-item" id="adid-0">
+          <div class="engine-head" onclick="this.parentElement.classList.toggle('open')">
+            <div style="display:flex;align-items:center;gap:.6rem">
+              <span style="font-size:1.1rem">📱</span>
+              <span class="engine-name">iPhone / iPad (iOS - IDFA)</span>
+            </div>
+            <span class="chevron">▼</span>
+          </div>
+          <div class="engine-links" style="flex-direction:column;gap:.5rem;padding:1rem">
+            <div style="font-family:var(--mono);font-size:.88rem;line-height:1.8;color:#c9d1d9">
+              <strong style="color:var(--accent)">Trouver l'IDFA :</strong><br>
+              Réglages → Confidentialité et sécurité → Suivi → l'ID n'est pas affiché directement par Apple. Utilisez une app tierce comme <strong>My IDFA</strong> (App Store) pour le lire.<br><br>
+              <strong style="color:var(--accent)">Désactiver le suivi cross-apps :</strong><br>
+              Réglages → Confidentialité et sécurité → <strong>Suivi</strong> → désactiver "Autoriser les demandes de suivi" → toutes les apps ne peuvent plus accéder à votre IDFA.<br><br>
+              <strong style="color:var(--accent)">Réinitialiser l'identifiant :</strong><br>
+              Réglages → Confidentialité et sécurité → <strong>Publicité Apple</strong> → "Réinitialiser l'identifiant publicitaire" → un nouvel ID est généré, l'ancien devient inutilisable.<br><br>
+              <strong style="color:var(--accent)">Refuser le ciblage pub Apple :</strong><br>
+              Réglages → Confidentialité et sécurité → Publicité Apple → activer "Publicités personnalisées" sur <strong>OFF</strong>.
+            </div>
+            <a class="engine-link-btn" href="https://support.apple.com/fr-fr/105131" target="_blank">→ Support Apple (suivi)</a>
+          </div>
+        </div>
+
+        <div class="engine-item" id="adid-1">
+          <div class="engine-head" onclick="this.parentElement.classList.toggle('open')">
+            <div style="display:flex;align-items:center;gap:.6rem">
+              <span style="font-size:1.1rem">🤖</span>
+              <span class="engine-name">Android (GAID / AAID)</span>
+            </div>
+            <span class="chevron">▼</span>
+          </div>
+          <div class="engine-links" style="flex-direction:column;gap:.5rem;padding:1rem">
+            <div style="font-family:var(--mono);font-size:.88rem;line-height:1.8;color:#c9d1d9">
+              <strong style="color:var(--accent)">Trouver le GAID :</strong><br>
+              Paramètres → Google → <strong>Annonces</strong> → votre identifiant publicitaire est affiché en clair.<br><br>
+              <strong style="color:var(--accent)">Supprimer l'identifiant (Android 12+) :</strong><br>
+              Paramètres → Google → Annonces → <strong>"Supprimer l'identifiant publicitaire"</strong> → confirmez. L'ID est remplacé par un identifiant nul non utilisable pour le ciblage.<br><br>
+              <strong style="color:var(--accent)">Réinitialiser seulement :</strong><br>
+              Paramètres → Google → Annonces → <strong>"Réinitialiser l'identifiant publicitaire"</strong> → un nouvel ID est généré.<br><br>
+              <strong style="color:var(--accent)">Désactiver la personnalisation :</strong><br>
+              Paramètres → Google → Annonces → désactiver <strong>"Personnalisation des annonces"</strong>.<br><br>
+              <em style="color:var(--muted)">Note : le chemin peut varier selon le fabricant (Samsung, Xiaomi…). Cherchez "Annonces" dans la barre de recherche des paramètres.</em>
+            </div>
+            <a class="engine-link-btn" href="https://support.google.com/googleplay/android-developer/answer/6048248" target="_blank">→ Documentation Google (GAID)</a>
+          </div>
+        </div>
+
+        <div class="engine-item" id="adid-2">
+          <div class="engine-head" onclick="this.parentElement.classList.toggle('open')">
+            <div style="display:flex;align-items:center;gap:.6rem">
+              <span style="font-size:1.1rem">🪟</span>
+              <span class="engine-name">Windows 10 / 11</span>
+            </div>
+            <span class="chevron">▼</span>
+          </div>
+          <div class="engine-links" style="flex-direction:column;gap:.5rem;padding:1rem">
+            <div style="font-family:var(--mono);font-size:.88rem;line-height:1.8;color:#c9d1d9">
+              <strong style="color:var(--accent)">Trouver et désactiver l'ID pub :</strong><br>
+              Paramètres → Confidentialité et sécurité → <strong>Général</strong> → désactiver "Autoriser les applications d'utiliser mon ID de publicité".<br><br>
+              <strong style="color:var(--accent)">Autres réglages recommandés sur la même page :</strong><br>
+              - Désactiver "Me proposer des contenus en fonction de ma liste de langues"<br>
+              - Désactiver "Me montrer des suggestions de contenu dans l'application Paramètres"<br><br>
+              <strong style="color:var(--accent)">Réinitialiser :</strong><br>
+              Il n'y a pas de bouton "réinitialiser" explicite sous Windows. Désactiver l'option suffit - Windows cesse de transmettre l'ID aux apps.
+            </div>
+            <a class="engine-link-btn" href="ms-settings:privacy-general" target="_blank">→ Ouvrir Paramètres → Confidentialité → Général</a>
+          </div>
+        </div>
+
+        <div class="engine-item" id="adid-3">
+          <div class="engine-head" onclick="this.parentElement.classList.toggle('open')">
+            <div style="display:flex;align-items:center;gap:.6rem">
+              <span style="font-size:1.1rem">🍎</span>
+              <span class="engine-name">macOS</span>
+            </div>
+            <span class="chevron">▼</span>
+          </div>
+          <div class="engine-links" style="flex-direction:column;gap:.5rem;padding:1rem">
+            <div style="font-family:var(--mono);font-size:.88rem;line-height:1.8;color:#c9d1d9">
+              <strong style="color:var(--accent)">ID publicitaire macOS :</strong><br>
+              Apple n'expose pas d'identifiant publicitaire aux apps tierces sur macOS (contrairement à iOS). Les apps Mac Store ne peuvent pas accéder à un IDFA équivalent.<br><br>
+              <strong style="color:var(--accent)">Publicités personnalisées Apple :</strong><br>
+              Préférences Système → Identifiant Apple → <strong>Médias et achats</strong> → "Publicités personnalisées" → désactiver.<br><br>
+              <strong style="color:var(--accent)">Safari - protection contre le tracking :</strong><br>
+              Safari → Préférences → Confidentialité → cocher "Empêcher le suivi inter-sites" et "Masquer l'adresse IP".
+            </div>
+            <a class="engine-link-btn" href="https://support.apple.com/fr-fr/guide/mac-help/mh35228/mac" target="_blank">→ Support Apple (confidentialité Mac)</a>
+          </div>
+        </div>
+
+        <div class="engine-item" id="adid-4">
+          <div class="engine-head" onclick="this.parentElement.classList.toggle('open')">
+            <div style="display:flex;align-items:center;gap:.6rem">
+              <span style="font-size:1.1rem">📺</span>
+              <span class="engine-name">Smart TV / Autres appareils</span>
+            </div>
+            <span class="chevron">▼</span>
+          </div>
+          <div class="engine-links" style="flex-direction:column;gap:.5rem;padding:1rem">
+            <div style="font-family:var(--mono);font-size:.88rem;line-height:1.8;color:#c9d1d9">
+              <strong style="color:var(--accent)">Smart TV (Samsung, LG, Sony…) :</strong><br>
+              Chaque fabricant a son propre ID de suivi. Cherchez dans les paramètres de la TV : Confidentialité → Publicités → "Réinitialiser l'ID" ou "Limiter le suivi pub".<br><br>
+              <strong style="color:var(--accent)">Amazon Fire TV :</strong><br>
+              Paramètres → Préférences → Confidentialité → "Réinitialiser l'identifiant publicitaire".<br><br>
+              <strong style="color:var(--accent)">Chromecast / Google TV :</strong><br>
+              Paramètres → Confidentialité → Annonces → "Réinitialiser l'ID publicitaire".
+            </div>
+          </div>
+        </div>
+
+      </div><!-- fin adid-list -->
+
+      <div class="banner b-info" style="margin-top:1rem">
+        💡 Même après réinitialisation, les données déjà collectées sous l'ancien ID restent chez les annonceurs. Vous pouvez demander leur suppression via les formulaires RGPD de chaque plateforme (Google Ads, Meta, etc.) en mentionnant l'ancien identifiant.
+      </div>
+
+      <!-- Refus ciblage sur les RS -->
+      <div style="margin-top:1.2rem">
+        <div class="card-title" style="margin-bottom:.7rem">→ Refuser le ciblage pub sur chaque plateforme</div>
+        <div class="deref-grid">
+          <div class="deref-card">
+            <h4>Google / YouTube</h4>
+            <p>Désactiver la personnalisation des annonces sur tous vos appareils connectés au compte Google.</p>
+            <a href="https://myadcenter.google.com" target="_blank">→ My Ad Center</a>
+          </div>
+          <div class="deref-card">
+            <h4>Meta (Facebook / Instagram)</h4>
+            <p>Paramètres → Publicités → "Données utilisées pour les publicités" → désactiver chaque option.</p>
+            <a href="https://www.facebook.com/adpreferences/ad_settings" target="_blank">→ Préférences pub Meta</a>
+          </div>
+          <div class="deref-card">
+            <h4>TikTok</h4>
+            <p>Paramètres → Confidentialité → Publicités → désactiver "Publicités personnalisées".</p>
+            <a href="https://www.tiktok.com/setting" target="_blank">→ Paramètres TikTok</a>
+          </div>
+          <div class="deref-card">
+            <h4>X / Twitter</h4>
+            <p>Paramètres → Confidentialité → Personnalisation et données → tout décocher.</p>
+            <a href="https://x.com/settings/account/personalization" target="_blank">→ Paramètres X</a>
+          </div>
+          <div class="deref-card">
+            <h4>LinkedIn</h4>
+            <p>Paramètres → Confidentialité des données → Données pour les publicités → désactiver.</p>
+            <a href="https://www.linkedin.com/psettings/advertising-data" target="_blank">→ Paramètres pub LinkedIn</a>
+          </div>
+          <div class="deref-card">
+            <h4>Opt-out global (EU)</h4>
+            <p>Outil européen pour refuser le ciblage de +100 réseaux publicitaires en une fois.</p>
+            <a href="https://www.youronlinechoices.com/fr/controler-ses-cookies" target="_blank">→ YourOnlineChoices</a>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- fin card ID pub -->
+
+    <!-- <div class="card">
       <div class="card-title">→ Bilan de session</div>
       <div id="stats-wrap"></div>
+    </div> -->
+
+    <div class="row" style="margin-top:.5rem">
+      <button class="btn btn-primary" onclick="step4Next()">Infos &amp; Outils →</button>
     </div>
+  </div>
+
+  <!-- ───── STEP 5 - INFOS / OUTILS ───── -->
+  <div class="section" id="s5">
     <div class="card">
       <div class="card-title">→ Outils complémentaires</div>
-      <div class="extra-grid" id="extra-grid">…</div>
+      <p style="font-family:var(--mono);font-size:.9rem;color:var(--muted);margin-bottom:.8rem">Outils utiles pour surveiller, nettoyer et protéger votre présence numérique.</p>
+      <div class="extra-grid" id="extra-grid"></div>
     </div>
     <div class="card">
       <div class="card-title">→ Infos : traitement des données par les réseaux sociaux</div>
-      <p style="font-family:var(--mono);font-size:.9rem;color:var(--muted);margin-bottom:.8rem">À titre informatif — ce que chaque plateforme collecte, conserve et partage sur vous.</p>
+      <p style="font-family:var(--mono);font-size:.9rem;color:var(--muted);margin-bottom:.8rem">À titre informatif - ce que chaque plateforme collecte, conserve et partage sur vous.</p>
       <div class="rs-grid" id="rs-info-grid">…</div>
     </div>
   </div>
@@ -605,7 +773,7 @@ async function step0() {
   document.getElementById('variants-box').innerHTML =
     data.variants.map(v => `<span class="tag tg">${v}</span>`).join(' ');
 
-  // Engines accordion — avec variantes listées comme boutons
+  // Engines accordion - avec variantes listées comme boutons
   document.getElementById('engines-list').innerHTML = data.search_engines.map((e, i) => {
     const badgeClass = typeBadgeClass(e.type);
     const isPhone = e.type === 'telephone';
@@ -641,15 +809,16 @@ async function step0() {
   document.getElementById('rs-info-grid').innerHTML = data.rs_info.map((rs, i) => {
     const collecteItems = rs.collecte.map(c => `<li>${c}</li>`).join('');
     return `
-    <div class="engine-item" id="rsc-${i}">
-      <div class="engine-head" onclick="toggleRS(${i})">
-        <div style="display:flex;align-items:center;gap:.5rem">
+    <div class="rs-card" id="rsc-${i}">
+      <div class="rs-card-head" onclick="toggleRS(${i})">
+        <div class="rs-card-name">
           <span class="rs-dot" style="background:${rs.couleur}"></span>
-          <span class="engine-name">${rs.nom}</span>
+          ${rs.nom}
+        </div>
+        <span class="chevron">▼</span>
       </div>
-      <span class="chevron">▼</span>
-      </div>
-      <div class="engine-links" style="display:none;flex-direction:column;gap:.5rem">        <div class="rs-row"><div class="rs-label">📥 Collecte</div><ul style="padding-left:1.1rem;color:var(--text)">${collecteItems}</ul></div>
+      <div class="rs-card-body">
+        <div class="rs-row"><div class="rs-label">📥 Collecte</div><ul style="padding-left:1.1rem;color:var(--text)">${collecteItems}</ul></div>
         <div class="rs-row" style="margin-top:.5rem"><div class="rs-label">🗓 Conservation</div><div class="rs-val">${rs.conservation}</div></div>
         <div class="rs-row" style="margin-top:.5rem"><div class="rs-label">🤝 Partage</div><div class="rs-val">${rs.partage}</div></div>
         <div class="rs-note">ℹ️ ${rs.note}</div>
@@ -696,11 +865,11 @@ function updateBreachAdvice() {
   div.style.display = 'block';
   div.innerHTML = `
     <div class="b-breach">
-      <strong>🚨 Des fuites ont été détectées — Actions prioritaires :</strong>
+      <strong>🚨 Des fuites ont été détectées - Actions prioritaires :</strong>
       <ul>
         <li><strong>1. Changer immédiatement</strong> le mot de passe du ou des comptes compromis (email + compte du service concerné)</li>
         <li><strong>2. Changer l'adresse email</strong> associée au compte touché si possible, ou créer un alias</li>
-        <li><strong>3. Changer TOUS les mots de passe</strong> des autres comptes où vous avez réutilisé le même mot de passe — les attaquants testent automatiquement les mots de passe volés sur tous les services connus (<em>credential stuffing</em>)</li>
+        <li><strong>3. Changer TOUS les mots de passe</strong> des autres comptes où vous avez réutilisé le même mot de passe - les attaquants testent automatiquement les mots de passe volés sur tous les services connus (<em>credential stuffing</em>)</li>
         <li><strong>4. Activer la double authentification (2FA)</strong> sur tous vos comptes importants (email, banque, réseaux sociaux)</li>
         <li><strong>5. Utiliser un gestionnaire de mots de passe</strong> pour générer des mots de passe uniques et forts : <a href="https://bitwarden.com" target="_blank" style="color:#a78bfa">Bitwarden</a> (open-source, gratuit), <a href="https://keepassxc.org" target="_blank" style="color:#a78bfa">KeePassXC</a> (100% local)</li>
         <li><strong>6. Surveiller</strong> vos comptes bancaires et emails pour détecter toute activité suspecte</li>
@@ -760,11 +929,12 @@ ${e.corps}</div>
   }).join('');
 
   document.getElementById('emails-content').innerHTML =
-    `<div class="banner b-info">✓ ${emails.length} email(s) générés — copiez et envoyez à chaque DPO.</div>` +
+    `<div class="banner b-info">✓ ${emails.length} email(s) générés - copiez et envoyez à chaque DPO.</div>` +
     `<div class="dpo-hint" style="margin-bottom:1rem">
-      <strong>💡 Trouver l'adresse du DPO pour chaque site :</strong><br>
-      Cherchez sur Google : <code>"[nom site]" contact DPO RGPD effacement</code> — ou consultez la page <code>/privacy</code> ou <code>/legal</code> du site.
-    </div>` +
+      <strong>💡 Comment trouver le contact DPO / suppression d'un site ?</strong><br>
+        1. Cherchez une page <code>/privacy</code>, <code>/legal</code> ou <code>/rgpd</code> sur le site<br>
+        2. Cherchez sur Google : <code>"[nom du site]" contact DPO RGPD</code><br>
+        3. Trouvez le formulaire RGPD du site    </div>` +
     html +
     `<br><div class="row">
       <button class="btn btn-secondary" onclick="nav(1)">← Modifier les sites</button>
@@ -785,7 +955,7 @@ const IMG_ENGINES = [
     id: 'google_lens',
     nom: 'Google Lens',
     emoji: '🔍',
-    desc: 'Le plus puissant — reconnaissance visuelle, contexte, correspondances exactes et similaires.',
+    desc: 'Le plus puissant - reconnaissance visuelle, contexte, correspondances exactes et similaires.',
     free: 'oui',
     freeLabel: 'Gratuit',
     supportsUpload: true,
@@ -813,7 +983,7 @@ const IMG_ENGINES = [
     id: 'bing_visual',
     nom: 'Bing Visual Search',
     emoji: '🔷',
-    desc: 'Recherche visuelle Microsoft — bonne couverture des sites anglophones et des profils sociaux.',
+    desc: 'Recherche visuelle Microsoft - bonne couverture des sites anglophones et des profils sociaux.',
     free: 'oui',
     freeLabel: 'Gratuit',
     supportsUpload: true,
@@ -854,7 +1024,7 @@ const IMG_ENGINES = [
     id: 'facecheck',
     nom: 'FaceCheck.ID',
     emoji: '🧑',
-    desc: 'Reconnaissance faciale orientée OSINT — retrouve profils sociaux et sites à partir d\'un visage.',
+    desc: 'Reconnaissance faciale orientée OSINT - retrouve profils sociaux et sites à partir d\'un visage.',
     free: 'limite',
     freeLabel: 'Gratuit limité',
     supportsUpload: true,
@@ -867,7 +1037,7 @@ const IMG_ENGINES = [
     id: 'baidu',
     nom: 'Baidu Images',
     emoji: '🇨🇳',
-    desc: 'Moteur chinois — utile si la photo circule sur des sites asiatiques ou des copies chinoises.',
+    desc: 'Moteur chinois - utile si la photo circule sur des sites asiatiques ou des copies chinoises.',
     free: 'oui',
     freeLabel: 'Gratuit',
     supportsUpload: false,
@@ -993,7 +1163,7 @@ function imgLensUpload() {
   // Google Lens accepte le drag & drop ou le copier-coller, pas de POST API public.
   // On ouvre Lens et on affiche un toast d'instruction.
   window.open('https://lens.google.com', '_blank');
-  showImgToast('Google Lens ouvert — glissez votre image dans la zone de dépôt, ou collez-la (Ctrl+V).');
+  showImgToast('Google Lens ouvert - glissez votre image dans la zone de dépôt, ou collez-la (Ctrl+V).');
 }
 function imgLensUrl() {
   const url = IMG.publicUrl;
@@ -1006,7 +1176,7 @@ function imgLensUrl() {
 function imgYandexUpload() {
   if (!IMG.dataUrl) return;
   window.open('https://yandex.com/images/', '_blank');
-  showImgToast('Yandex ouvert — cliquez l\'icône appareil photo 📷 dans la barre de recherche, puis uploadez votre image.');
+  showImgToast('Yandex ouvert - cliquez l\'icône appareil photo 📷 dans la barre de recherche, puis uploadez votre image.');
 }
 function imgYandexUrl() {
   if (!IMG.publicUrl) return;
@@ -1017,7 +1187,7 @@ function imgYandexUrl() {
 function imgBingUpload() {
   if (!IMG.dataUrl) return;
   window.open('https://www.bing.com/visualsearch', '_blank');
-  showImgToast('Bing Visual ouvert — cliquez "Recherche visuelle" puis uploadez votre image.');
+  showImgToast('Bing Visual ouvert - cliquez "Recherche visuelle" puis uploadez votre image.');
 }
 function imgBingUrl() {
   if (!IMG.publicUrl) return;
@@ -1028,7 +1198,7 @@ function imgBingUrl() {
 function imgTineyeUpload() {
   if (!IMG.dataUrl) return;
   window.open('https://tineye.com', '_blank');
-  showImgToast('TinEye ouvert — cliquez l\'icône upload (flèche vers le haut) et sélectionnez votre image.');
+  showImgToast('TinEye ouvert - cliquez l\'icône upload (flèche vers le haut) et sélectionnez votre image.');
 }
 function imgTineyeUrl() {
   if (!IMG.publicUrl) return;
@@ -1039,21 +1209,21 @@ function imgTineyeUrl() {
 function imgPimeyesUpload() {
   if (!IMG.dataUrl) return;
   window.open('https://pimeyes.com', '_blank');
-  showImgToast('PimEyes ouvert — cliquez "Upload Photo" et sélectionnez votre image. Les résultats complets sont en version payante, mais les correspondances sont visibles en gratuit.');
+  showImgToast('PimEyes ouvert - cliquez "Upload Photo" et sélectionnez votre image. Les résultats complets sont en version payante, mais les correspondances sont visibles en gratuit.');
 }
 
 // ══ FACECHECK.ID ══
 function imgFacecheckUpload() {
   if (!IMG.dataUrl) return;
   window.open('https://facecheck.id', '_blank');
-  showImgToast('FaceCheck.ID ouvert — cliquez l\'icône appareil photo et uploadez votre image. Résultats partiels en gratuit.');
+  showImgToast('FaceCheck.ID ouvert - cliquez l\'icône appareil photo et uploadez votre image. Résultats partiels en gratuit.');
 }
 
 // ══ SEARCH4FACES ══
 function imgSearch4FacesUpload() {
   if (!IMG.dataUrl) return;
   window.open('https://search4faces.com', '_blank');
-  showImgToast('Search4Faces ouvert — uploadez votre image directement sur la page d\'accueil.');
+  showImgToast('Search4Faces ouvert - uploadez votre image directement sur la page d\'accueil.');
 }
 
 // ══ BAIDU ══
@@ -1118,9 +1288,15 @@ async function step3Next() {
       <div class="stat"><div class="stat-n">30j</div><div class="stat-l">Délai légal RGPD</div></div>
       ${S.telephone ? '<div class="stat"><div class="stat-n" style="color:#38bdf8">📞</div><div class="stat-l">Tél. recherché</div></div>' : ''}
       ${breachTxt ? '<div class="stat"><div class="stat-n" style="color:var(--danger)">⚠</div><div class="stat-l">Fuites détectées</div></div>' : ''}
-    </div>
-    <div class="banner b-info">✓ Conservez la preuve de vos envois (date, capture). Sans réponse sous 30j → saisir la CNIL.</div>`;
+    </div>`
+    // <div class="banner b-info">✓ Conservez la preuve de vos envois (date, capture). Sans réponse sous 30j → saisir la CNIL.</div>`;
+}
 
+// ── STEP 4→5 ──
+async function step4Next() {
+  unlock(5); nav(5);
+
+  // Outils complémentaires
   const tools = await api('/api/extra-tools');
   document.getElementById('extra-grid').innerHTML = tools.map(t => `
     <div class="extra-card">
@@ -1128,6 +1304,29 @@ async function step3Next() {
       <p>${t.desc}</p>
       <a href="${t.url}" target="_blank">→ ${t.url.replace('https://','').split('/')[0]}</a>
     </div>`).join('');
+
+  // RS info cards (utilise les données déjà chargées dans S.search_data)
+  if (S.search_data && S.search_data.rs_info) {
+    document.getElementById('rs-info-grid').innerHTML = S.search_data.rs_info.map((rs, i) => {
+      const collecteItems = rs.collecte.map(c => `<li>${c}</li>`).join('');
+      return `
+      <div class="rs-card" id="rsc-${i}">
+        <div class="rs-card-head" onclick="toggleRS(${i})">
+          <div class="rs-card-name">
+            <span class="rs-dot" style="background:${rs.couleur}"></span>
+            ${rs.nom}
+          </div>
+          <span class="chevron">▼</span>
+        </div>
+        <div class="rs-card-body">
+          <div class="rs-row"><div class="rs-label">📥 Collecte</div><ul style="padding-left:1.1rem;color:var(--text)">${collecteItems}</ul></div>
+          <div class="rs-row" style="margin-top:.5rem"><div class="rs-label">🗓 Conservation</div><div class="rs-val">${rs.conservation}</div></div>
+          <div class="rs-row" style="margin-top:.5rem"><div class="rs-label">🤝 Partage</div><div class="rs-val">${rs.partage}</div></div>
+          <div class="rs-note">ℹ️ ${rs.note}</div>
+        </div>
+      </div>`;
+    }).join('');
+  }
 }
 </script>
 </body>

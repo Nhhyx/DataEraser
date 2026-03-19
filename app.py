@@ -260,7 +260,7 @@ def search_variants():
             "collecte": ["Profil & réseau", "Localisation", "Messages (analyse IA)", "Contacts importés", "Comportement hors Facebook (Pixel Meta)"],
             "conservation": "90 jours après suppression du compte pour la plupart des données",
             "partage": "Annonceurs Meta, Instagram, WhatsApp, partenaires tiers",
-            "note": "⚠ Le Pixel Meta collecte vos données sur des sites tiers même sans compte Facebook."
+            "note": "Le Pixel Meta collecte vos données sur des sites tiers même sans compte Facebook."
         },
         {
             "nom": "Instagram / Meta", "couleur": "#E1306C",
@@ -281,7 +281,7 @@ def search_variants():
             "collecte": ["Vidéos visionnées", "Localisation", "Contacts", "Voix & visage", "Presse-papiers", "Données biométriques"],
             "conservation": "Jusqu'à 30 jours après suppression (données analytiques : durée indéterminée)",
             "partage": "ByteDance (siège en Chine), annonceurs, partenaires",
-            "note": "⚠ Données potentiellement accessibles par ByteDance en Chine. Interdit sur appareils gouvernementaux dans plusieurs pays."
+            "note": "Données potentiellement accessibles par ByteDance en Chine. Interdit sur appareils gouvernementaux dans plusieurs pays."
         },
         {
             "nom": "LinkedIn / Microsoft", "couleur": "#0A66C2",
