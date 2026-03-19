@@ -39,24 +39,24 @@ def generer_email_rgpd(prenom, nom, email_contact, site, url_page=""):
 
     corps = f"""Madame, Monsieur,
 
-Je me permets de vous contacter conformement au Reglement General sur la Protection des Donnees (RGPD - Reglement UE 2016/679), et plus particulierement en application de son Article 17 relatif au droit a l'effacement.
+Je me permets de vous contacter conformément au Règlement général sur la Protection des Données (RGPD - Règlement UE 2016/679), et plus particulièrement en application de son Article 17 relatif au droit à l'effacement.
 
-Des donnees personnelles me concernant apparaissent sur votre plateforme {site}.{ref_url}
+Des données personnelles me concernant apparaissent sur votre plateforme {site}.{ref_url}
 
-Ces donnees incluent notamment mon nom et prenom, et potentiellement d'autres informations me concernant, collectees et diffusees sans mon consentement explicite.
+Ces données incluent notamment mon nom et prénom, et potentiellement d'autres informations me concernant, collectées et diffusées sans mon consentement explicite.
 
 En vertu de l'Article 17 SS1 du RGPD, je vous demande formellement :
-  1. L'effacement immediat de l'integralite des donnees me concernant ;
-  2. La confirmation ecrite de cet effacement dans un delai de trente (30) jours.
+  1. L'effacement immédiat de l'intégralité des données me concernant ;
+  2. La confirmation écrite de cet effacement dans un délai de trente (30) jours.
 
-Mes coordonnees pour traitement :
+Mes coordonnées pour traitement :
   Nom complet : {prenom} {nom}
   Email de contact : {email_contact if email_contact else "[votre email]"}
   Date de la demande : {today}
 
-En l'absence de reponse satisfaisante dans ce delai legal, je me verrai dans l'obligation de saisir la Commission Nationale de l'Informatique et des Libertes (CNIL) d'une plainte formelle (cnil.fr/fr/plaintes) et, le cas echeant, de faire valoir mes droits en justice.
+En l'absence de réponse satisfaisante dans ce délai légal, je me verrai dans l'obligation de saisir la Commission Nationale de l'Informatique et des Libertés (CNIL) d'une plainte formelle (cnil.fr/fr/plaintes) et, le cas échéant, de faire valoir mes droits en justice.
 
-Je reste a votre disposition pour toute question complementaire.
+Je reste à votre disposition pour toute question complémentaire.
 
 Cordialement,
 {prenom} {nom}"""
@@ -355,24 +355,24 @@ def deref_links():
 def generer_email_deref(prenom, nom, urls=[]):
     today      = datetime.now().strftime("%d/%m/%Y")
     liste_urls = "\n".join([f"  - {u}" for u in urls]) if urls else "  [Indiquer les URLs concernees]"
-    return f"""Objet : Demande de dereferencement - Article 17 RGPD - {prenom} {nom}
+    return f"""Objet : Demande de déréférencement - Article 17 RGPD 
 
 Madame, Monsieur,
 
-Je vous contacte conformement au Reglement General sur la Protection des Donnees (RGPD - UE 2016/679), Article 17, afin de solliciter le dereferencement de pages affichant des donnees personnelles me concernant dans vos resultats de recherche.
+Je vous contacte conformément au règlement Général sur la Protection des Données (RGPD - UE 2016/679), Article 17, afin de solliciter le déréférencement de pages affichant des données personnelles me concernant dans vos résultats de recherche.
 
-URLs a dereferencement :
+URLs à déréférencer :
 {liste_urls}
 
 Motifs (Art. 17 SS1) :
-  - Ces donnees ne sont plus necessaires au regard des finalites pour lesquelles elles ont ete collectees ;
-  - Je m'oppose au traitement de ces donnees (Art. 21 RGPD) ;
-  - Ces informations portent atteinte a ma vie privee.
+  - Ces données ne sont plus nécessaires au regard des finalités pour lesquelles elles ont été collectées ;
+  - Je m'oppose au traitement de ces données (Art. 21 RGPD) ;
+  - Ces informations portent atteinte à ma vie privée.
 
-Identite : {prenom} {nom}
+Identité : {prenom} {nom}
 Date : {today}
 
-Je vous rappelle votre obligation de repondre dans un delai de trente (30) jours. Sans reponse satisfaisante, je saisirai la CNIL (cnil.fr/fr/plaintes).
+Je vous rappelle votre obligation de répondre dans un délai de trente (30) jours. Sans réponse satisfaisante, je saisirai la CNIL (cnil.fr/fr/plaintes).
 
 Cordialement,
 {prenom} {nom}"""
